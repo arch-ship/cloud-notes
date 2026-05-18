@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Computing – Complete Study Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #111827;
+  --bg3: #1a2236;
+  --card: #151d2e;
+  --border: rgba(99,130,255,0.15);
+  --border2: rgba(99,130,255,0.25);
+  --accent: #6382ff;
+  --accent2: #00d4aa;
+  --accent3: #ff6b6b;
+  --accent4: #ffd166;
+  --text: #e8eaf6;
+  --text2: #9ba3c0;
+  --text3: #5a6280;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Space Grotesk', sans-serif;
+  --glow: 0 0 40px rgba(99,130,255,0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; width: 260px; height: 100vh; background: var(--bg2); border-right: 1px solid var(--border); overflow-y: auto; z-index: 100; padding: 0 0 2rem; }
+nav::-webkit-scrollbar { width: 4px; } nav::-webkit-scrollbar-thumb { background: var(--border2); }
+.nav-header { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid var(--border); }
+.nav-header h1 { font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
+.nav-header p { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.nav-section { padding: 0.75rem 1.25rem 0.25rem; font-size: 10px; font-weight: 600; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; }
+nav a { display: flex; align-items: center; gap: 8px; padding: 0.4rem 1.25rem; font-size: 13px; color: var(--text2); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; }
+nav a:hover { color: var(--text); background: rgba(99,130,255,0.06); border-left-color: var(--accent); }
+nav a.active { color: var(--accent); background: rgba(99,130,255,0.08); border-left-color: var(--accent); }
+nav a .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; opacity: 0.4; }
+nav a.active .dot { opacity: 1; }
+
+/* MAIN */
+main { margin-left: 260px; padding: 2rem 3rem 4rem; max-width: 1000px; }
+.page-hero { padding: 3rem 0 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(99,130,255,0.1); border: 1px solid var(--border2); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1rem; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.page-hero h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.1; }
+.page-hero h1 span { color: var(--accent); }
+.page-hero p { color: var(--text2); margin-top: 0.75rem; max-width: 600px; font-size: 16px; }
+.exam-bar { display: flex; gap: 12px; margin-top: 1.5rem; flex-wrap: wrap; }
+.exam-pill { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 12px; }
+.exam-pill strong { color: var(--accent4); }
+
+/* SECTIONS */
+section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+.section-label { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+.section-num { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-num.green { background: var(--accent2); color: #000; }
+.section-num.red { background: var(--accent3); }
+.section-num.yellow { background: var(--accent4); color: #000; }
+h2.section-title { font-size: 1.5rem; font-weight: 700; }
+h3 { font-size: 1.05rem; font-weight: 600; color: var(--accent); margin: 1.5rem 0 0.6rem; }
+p { color: var(--text2); margin-bottom: 0.75rem; }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.card-sm { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; }
+.card-sm h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+.card-sm p { font-size: 12px; color: var(--text2); margin: 0; }
+.card-sm .icon { font-size: 20px; margin-bottom: 0.5rem; }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; margin: 1rem 0; border-radius: 10px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: var(--bg3); color: var(--accent); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 14px; text-align: left; }
+td { padding: 10px 14px; color: var(--text2); border-top: 1px solid var(--border); }
+tr:hover td { background: rgba(99,130,255,0.04); }
+td strong { color: var(--text); }
+
+/* CODE */
+pre { background: #0d1117; border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; overflow-x: auto; margin: 1rem 0; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; }
+code { font-family: var(--mono); font-size: 12px; background: rgba(99,130,255,0.1); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; color: var(--accent2); }
+.cmt { color: #5a6280; }
+.kw { color: #ff79c6; }
+.str { color: #f1fa8c; }
+.fn { color: #8be9fd; }
+.num { color: var(--accent4); }
+
+/* DIAGRAM AREA */
+.diagram-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 1.25rem 0; overflow-x: auto; }
+.diagram-box svg { width: 100%; height: auto; display: block; }
+.diagram-label { font-size: 11px; color: var(--text3); text-align: center; margin-top: 0.75rem; font-style: italic; }
+
+/* HIGHLIGHT BOX */
+.highlight { background: rgba(99,130,255,0.07); border: 1px solid rgba(99,130,255,0.25); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1rem 0; }
+.highlight.green { background: rgba(0,212,170,0.07); border-color: rgba(0,212,170,0.25); border-left-color: var(--accent2); }
+.highlight.yellow { background: rgba(255,209,102,0.07); border-color: rgba(255,209,102,0.25); border-left-color: var(--accent4); }
+.highlight.red { background: rgba(255,107,107,0.07); border-color: rgba(255,107,107,0.25); border-left-color: var(--accent3); }
+.highlight .label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+.highlight.green .label { color: var(--accent2); }
+.highlight .label { color: var(--accent); }
+.highlight.yellow .label { color: var(--accent4); }
+.highlight.red .label { color: var(--accent3); }
+
+/* STEPS */
+.steps { counter-reset: step; display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0; }
+.step { counter-increment: step; display: flex; gap: 12px; align-items: flex-start; }
+.step::before { content: counter(step); min-width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.step p { margin: 0; color: var(--text2); font-size: 13px; }
+.step p strong { color: var(--text); }
+
+/* BULLET */
+ul.bullets { list-style: none; padding: 0; }
+ul.bullets li { padding: 4px 0 4px 18px; position: relative; color: var(--text2); font-size: 13.5px; }
+ul.bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 7px; }
+
+/* COMMAND TABLE */
+.cmd-table { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); margin: 1rem 0; }
+.cmd-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
+.cmd-row:last-child { border-bottom: none; }
+.cmd-code { font-family: var(--mono); font-size: 12px; color: var(--accent2); background: #0d1117; padding: 10px 14px; }
+.cmd-desc { font-size: 12px; color: var(--text2); padding: 10px 14px; background: var(--card); }
+
+/* COMPARISON */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+.compare-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+.compare-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+.compare-card.blue h4 { color: var(--accent); }
+.compare-card.green h4 { color: var(--accent2); }
+.compare-card.red h4 { color: var(--accent3); }
+.compare-card.yellow h4 { color: var(--accent4); }
+
+/* BADGE */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.badge.blue { background: rgba(99,130,255,0.15); color: var(--accent); }
+.badge.green { background: rgba(0,212,170,0.15); color: var(--accent2); }
+.badge.red { background: rgba(255,107,107,0.15); color: var(--accent3); }
+.badge.yellow { background: rgba(255,209,102,0.15); color: var(--accent4); }
+
+/* PRIORITY BANNER */
+.priority { display: flex; align-items: center; gap: 10px; background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2); border-radius: 10px; padding: 12px 16px; margin-bottom: 1.25rem; }
+.priority .star { color: var(--accent3); font-size: 16px; }
+.priority p { margin: 0; font-size: 13px; color: var(--text2); }
+.priority p strong { color: var(--accent3); }
+
+/* SVG text */
+.svgt { font-family: 'Space Grotesk', sans-serif; }
+
+/* FOOTER */
+footer { margin-left: 260px; padding: 1.5rem 3rem; border-top: 1px solid var(--border); color: var(--text3); font-size: 12px; }
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border);}
+  main,footer{margin-left:0;padding:1.25rem 1rem 3rem;}
+  .compare-grid,.card-grid{grid-template-columns:1fr;}
+  .cmd-row{grid-template-columns:1fr;}
+}
+
+/* SMOOTH SCROLL */
+html { scroll-behavior: smooth; }
+
+/* EXAM CARDS */
+.exam-q { background: var(--bg3); border: 1px solid var(--border2); border-radius: 10px; padding: 1.25rem; margin: 0.75rem 0; }
+.exam-q .q-label { font-size: 10px; font-weight: 700; color: var(--accent4); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.exam-q .q-text { font-size: 13.5px; color: var(--text); font-weight: 500; }
+.exam-q .q-marks { font-size: 11px; color: var(--text3); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-header">
+    <h1>☁ Cloud Computing</h1>
+    <p>25B12CA324 · End Sem Notes</p>
+  </div>
+  <div class="nav-section">Modules</div>
+  <a href="#m1"><span class="dot"></span>1. Cloud Fundamentals</a>
+  <a href="#m2"><span class="dot"></span>2. Microservices</a>
+  <a href="#m3"><span class="dot"></span>3. JSON</a>
+  <a href="#m4"><span class="dot"></span>4. REST API</a>
+  <a href="#m5"><span class="dot"></span>5. Node.js & Express</a>
+  <a href="#m6"><span class="dot"></span>6. MongoDB</a>
+  <div class="nav-section">★ High Priority (60%)</div>
+  <a href="#m7"><span class="dot"></span>9. Docker</a>
+  <a href="#m8"><span class="dot"></span>10. Docker Swarm</a>
+  <a href="#m9"><span class="dot"></span>11. AWS ECS</a>
+  <a href="#m10"><span class="dot"></span>12. Kubernetes</a>
+  <a href="#m11"><span class="dot"></span>13. Minikube</a>
+  <div class="nav-section">Exam Prep</div>
+  <a href="#patterns"><span class="dot"></span>Exam Patterns</a>
+  <a href="#quickref"><span class="dot"></span>Quick Reference</a>
+  <div class="nav-section" style="color:#00d4aa">★ Cheatsheet</div>
+  <a href="#cheatsheet"><span class="dot" style="background:#00d4aa"></span>Theory Cheatsheet</a>
+  <a href="#cmdsheet"><span class="dot" style="background:#ffd166"></span>Commands Sheet</a>
+</nav>
+
+<main>
+  <div class="page-hero">
+    <div class="hero-badge">End Semester Study Guide</div>
+    <h1>Cloud <span>Computing</span><br>Complete Notes</h1>
+    <p>All topics from PPTs 1–13, exam papers analyzed. PPTs 9–13 = 60% of your paper.</p>
+    <div class="exam-bar">
+      <div class="exam-pill">Total: <strong>35 Marks</strong></div>
+      <div class="exam-pill">Questions: <strong>6–7 × 5 marks</strong></div>
+      <div class="exam-pill">Max/Q: <strong>8 marks</strong></div>
+      <div class="exam-pill">PPTs 9–13: <strong>★ 60% weight</strong></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 1: CLOUD FUNDAMENTALS -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m1">
+    <div class="section-label"><div class="section-num">1</div><h2 class="section-title">Introduction to Cloud Computing</h2></div>
+
+    <p>Cloud computing is the delivery of computing services—servers, storage, databases, networking, software, analytics—over the internet to offer faster innovation, flexible resources, and economies of scale.</p>
+
+    <!-- Diagram: 5 NIST Characteristics -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" role="img">
+        <title>5 Essential Characteristics of Cloud Computing</title>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- Center cloud -->
+        <ellipse cx="340" cy="160" rx="60" ry="42" fill="#1a2236" stroke="#6382ff" stroke-width="1.5"/>
+        <text x="340" y="155" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#6382ff">CLOUD</text>
+        <text x="340" y="170" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">COMPUTING</text>
+        <!-- Characteristic boxes -->
+        <!-- On-Demand -->
+        <rect x="20" y="30" width="160" height="62" rx="8" fill="#1a2236" stroke="#6382ff" stroke-width="1"/>
+        <text x="100" y="53" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#e8eaf6">On-Demand</text>
+        <text x="100" y="68" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">Self-Service</text>
+        <text x="100" y="83" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">Provision without human help</text>
+        <line x1="180" y1="61" x2="280" y2="130" stroke="#6382ff" stroke-width="1" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <!-- Broad Network -->
+        <rect x="20" y="228" width="160" height="62" rx="8" fill="#1a2236" stroke="#00d4aa" stroke-width="1"/>
+        <text x="100" y="250" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#e8eaf6">Broad Network</text>
+        <text x="100" y="265" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">Access</text>
+        <text x="100" y="280" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">Any device, internet</text>
+        <line x1="180" y1="252" x2="280" y2="192" stroke="#00d4aa" stroke-width="1" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <!-- Resource Pooling -->
+        <rect x="500" y="30" width="160" height="62" rx="8" fill="#1a2236" stroke="#ffd166" stroke-width="1"/>
+        <text x="580" y="53" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#e8eaf6">Resource</text>
+        <text x="580" y="68" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">Pooling</text>
+        <text x="580" y="83" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">Multi-tenant shared pool</text>
+        <line x1="500" y1="61" x2="400" y2="130" stroke="#ffd166" stroke-width="1" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <!-- Rapid Elasticity -->
+        <rect x="500" y="228" width="160" height="62" rx="8" fill="#1a2236" stroke="#ff6b6b" stroke-width="1"/>
+        <text x="580" y="250" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#e8eaf6">Rapid</text>
+        <text x="580" y="265" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">Elasticity</text>
+        <text x="580" y="280" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">Auto scale up/down</text>
+        <line x1="500" y1="252" x2="400" y2="192" stroke="#ff6b6b" stroke-width="1" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <!-- Measured Service -->
+        <rect x="260" y="268" width="160" height="44" rx="8" fill="#1a2236" stroke="#9b59b6" stroke-width="1"/>
+        <text x="340" y="286" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#e8eaf6">Measured Service</text>
+        <text x="340" y="302" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">Pay-as-you-go metering</text>
+        <line x1="340" y1="268" x2="340" y2="202" stroke="#9b59b6" stroke-width="1" stroke-opacity="0.5" marker-end="url(#arr)"/>
+      </svg>
+      <p class="diagram-label">NIST's 5 Essential Characteristics of Cloud Computing</p>
+    </div>
+
+    <div class="highlight yellow">
+      <div class="label">★ Exam Tip</div>
+      T1 Q1 was directly on these. Know all 5 with examples and business benefits. Festival sale scenario → Rapid Elasticity. Pay-as-you-go → Measured Service.
+    </div>
+
+    <h3>Cloud Service Models</h3>
+    <!-- IaaS/PaaS/SaaS Stack Diagram -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg" role="img">
+        <title>Cloud Service Models - IaaS PaaS SaaS</title>
+        <!-- SaaS column -->
+        <rect x="30" y="20" width="180" height="40" rx="6" fill="#1a3a2a" stroke="#00d4aa" stroke-width="1"/>
+        <text x="120" y="45" text-anchor="middle" font-family="Space Grotesk" font-size="13" font-weight="600" fill="#00d4aa">SaaS</text>
+        <rect x="30" y="68" width="180" height="30" rx="4" fill="#0f2218" stroke="rgba(0,212,170,0.2)" stroke-width="0.5"/>
+        <text x="120" y="87" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">Applications</text>
+        <rect x="30" y="106" width="180" height="30" rx="4" fill="#0f2218" stroke="rgba(0,212,170,0.2)" stroke-width="0.5"/>
+        <text x="120" y="125" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">Runtime / Middleware</text>
+        <rect x="30" y="144" width="180" height="30" rx="4" fill="#0a1a10" stroke="rgba(0,212,170,0.15)" stroke-width="0.5"/>
+        <text x="120" y="163" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#5a6280">OS / Servers / Networking</text>
+        <rect x="30" y="182" width="180" height="30" rx="4" fill="#0a1a10" stroke="rgba(0,212,170,0.15)" stroke-width="0.5"/>
+        <text x="120" y="201" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#5a6280">Storage / Compute</text>
+        <text x="120" y="238" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#00d4aa">All managed by provider</text>
+        <text x="120" y="256" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">Gmail, Zoom, Salesforce</text>
+        <!-- PaaS column -->
+        <rect x="250" y="20" width="180" height="40" rx="6" fill="#1a2a3a" stroke="#6382ff" stroke-width="1"/>
+        <text x="340" y="45" text-anchor="middle" font-family="Space Grotesk" font-size="13" font-weight="600" fill="#6382ff">PaaS</text>
+        <rect x="250" y="68" width="180" height="30" rx="4" fill="#111d2e" stroke="rgba(99,130,255,0.3)" stroke-width="1"/>
+        <text x="340" y="87" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#e8eaf6">→ Your Code / Data</text>
+        <rect x="250" y="106" width="180" height="30" rx="4" fill="#0d1520" stroke="rgba(99,130,255,0.15)" stroke-width="0.5"/>
+        <text x="340" y="125" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#5a6280">Runtime / Middleware</text>
+        <rect x="250" y="144" width="180" height="30" rx="4" fill="#0d1520" stroke="rgba(99,130,255,0.15)" stroke-width="0.5"/>
+        <text x="340" y="163" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#5a6280">OS / Servers / Networking</text>
+        <rect x="250" y="182" width="180" height="30" rx="4" fill="#0d1520" stroke="rgba(99,130,255,0.15)" stroke-width="0.5"/>
+        <text x="340" y="201" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#5a6280">Storage / Compute</text>
+        <text x="340" y="238" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#6382ff">You manage: Code only</text>
+        <text x="340" y="256" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">Heroku, Google App Engine</text>
+        <!-- IaaS column -->
+        <rect x="470" y="20" width="180" height="40" rx="6" fill="#3a1a2a" stroke="#ff6b6b" stroke-width="1"/>
+        <text x="560" y="45" text-anchor="middle" font-family="Space Grotesk" font-size="13" font-weight="600" fill="#ff6b6b">IaaS</text>
+        <rect x="470" y="68" width="180" height="30" rx="4" fill="#2a1018" stroke="rgba(255,107,107,0.3)" stroke-width="1"/>
+        <text x="560" y="87" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#e8eaf6">→ Apps / Data</text>
+        <rect x="470" y="106" width="180" height="30" rx="4" fill="#2a1018" stroke="rgba(255,107,107,0.3)" stroke-width="1"/>
+        <text x="560" y="125" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#e8eaf6">→ Runtime / OS</text>
+        <rect x="470" y="144" width="180" height="30" rx="4" fill="#1a0810" stroke="rgba(255,107,107,0.15)" stroke-width="0.5"/>
+        <text x="560" y="163" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#5a6280">Networking (managed)</text>
+        <rect x="470" y="182" width="180" height="30" rx="4" fill="#1a0810" stroke="rgba(255,107,107,0.15)" stroke-width="0.5"/>
+        <text x="560" y="201" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#5a6280">Storage / Compute</text>
+        <text x="560" y="238" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#ff6b6b">You manage: OS + Apps</text>
+        <text x="560" y="256" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">AWS EC2, Azure VMs</text>
+      </svg>
+      <p class="diagram-label">Cloud Service Models — darker = provider managed, lighter = user managed</p>
+    </div>
+
+    <h3>Cloud Deployment Models</h3>
+    <div class="card-grid">
+      <div class="card-sm"><div class="icon">🏢</div><h4>Public Cloud</h4><p>AWS, Azure, GCP. Shared infrastructure over internet. Cost-effective, scalable.</p></div>
+      <div class="card-sm"><div class="icon">🔒</div><h4>Private Cloud</h4><p>Dedicated to one org. On-premises or hosted. Full control, high security.</p></div>
+      <div class="card-sm"><div class="icon">🔀</div><h4>Hybrid Cloud</h4><p>Mix of public + private. Sensitive data private, scalable workloads public.</p></div>
+      <div class="card-sm"><div class="icon">☁️</div><h4>Multi-Cloud</h4><p>Multiple public providers simultaneously. Avoids vendor lock-in.</p></div>
+    </div>
+
+    <h3>Virtual Server Types</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Key Trait</th><th>Cost</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Bare Metal</strong></td><td>No hypervisor, direct hardware</td><td>Highest</td><td>High Performance Computing</td></tr>
+          <tr><td><strong>Virtual Server</strong></td><td>Multi-tenant, shared host</td><td>Low</td><td>General workloads</td></tr>
+          <tr><td><strong>Dedicated Host</strong></td><td>Single tenant, entire server</td><td>Very High</td><td>Compliance, licensing</td></tr>
+          <tr><td><strong>Reserved Instance</strong></td><td>Capacity pre-reserved</td><td>Medium</td><td>Long-term predictable workloads ✓</td></tr>
+          <tr><td><strong>Spot/Transient VM</strong></td><td>Can be terminated anytime</td><td>Lowest</td><td>Short-term fault-tolerant tasks</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="highlight yellow"><div class="label">★ T1 Q2</div>Research team, 6hrs/day analytics, can't risk termination → <strong>Reserved Instances</strong>. Not Spot (can terminate). Not Dedicated (too expensive).</div>
+
+    <h3>Type 1 vs Type 2 Hypervisors</h3>
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>Type 1 — Bare Metal</h4>
+        <ul class="bullets">
+          <li>Runs directly on hardware (no host OS)</li>
+          <li>Better performance, lower overhead</li>
+          <li>Strong isolation, smaller attack surface</li>
+          <li>Used in <strong>enterprise data centers</strong></li>
+          <li>Examples: VMware ESXi, Hyper-V, Xen</li>
+        </ul>
+      </div>
+      <div class="compare-card green">
+        <h4>Type 2 — Hosted</h4>
+        <ul class="bullets">
+          <li>Runs on top of existing host OS</li>
+          <li>Easy to install alongside apps</li>
+          <li>Lower performance (extra OS layer)</li>
+          <li>Used for <strong>developer laptops, testing</strong></li>
+          <li>Examples: VirtualBox, VMware Workstation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight yellow"><div class="label">★ T1 Q3</div>Enterprise secure data center → <strong>Type 1</strong>. Developer laptop for testing → <strong>Type 2</strong>.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 2: MICROSERVICES -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m2">
+    <div class="section-label"><div class="section-num green">2</div><h2 class="section-title">Microservices Architecture</h2></div>
+
+    <p>An architectural style structuring an app as a collection of small, independently deployable services, each running its own process and communicating via lightweight mechanisms (REST APIs, message brokers).</p>
+
+    <!-- Monolithic vs Microservices Diagram -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg" role="img">
+        <title>Monolithic vs Microservices Architecture</title>
+        <!-- Monolithic side -->
+        <text x="160" y="22" text-anchor="middle" font-family="Space Grotesk" font-size="13" font-weight="600" fill="#ff6b6b">Monolithic</text>
+        <rect x="50" y="34" width="220" height="180" rx="10" fill="#1a1018" stroke="#ff6b6b" stroke-width="1.5"/>
+        <rect x="70" y="52" width="180" height="28" rx="4" fill="#2a1018" stroke="rgba(255,107,107,0.3)" stroke-width="0.5"/>
+        <text x="160" y="70" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">UI Layer</text>
+        <rect x="70" y="88" width="180" height="28" rx="4" fill="#2a1018" stroke="rgba(255,107,107,0.3)" stroke-width="0.5"/>
+        <text x="160" y="106" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">Business Logic</text>
+        <rect x="70" y="124" width="180" height="28" rx="4" fill="#2a1018" stroke="rgba(255,107,107,0.3)" stroke-width="0.5"/>
+        <text x="160" y="142" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">Cart + Payment + Shipping</text>
+        <rect x="70" y="160" width="180" height="28" rx="4" fill="#2a1018" stroke="rgba(255,107,107,0.3)" stroke-width="0.5"/>
+        <text x="160" y="178" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#9ba3c0">Database</text>
+        <text x="160" y="232" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#ff6b6b">⚠ Scale ENTIRE app for one feature</text>
+        <!-- VS -->
+        <text x="340" y="140" text-anchor="middle" font-family="Space Grotesk" font-size="18" font-weight="700" fill="#5a6280">VS</text>
+        <!-- Microservices side -->
+        <text x="530" y="22" text-anchor="middle" font-family="Space Grotesk" font-size="13" font-weight="600" fill="#00d4aa">Microservices</text>
+        <!-- Gateway -->
+        <rect x="430" y="34" width="190" height="34" rx="6" fill="#0d2020" stroke="#00d4aa" stroke-width="1"/>
+        <text x="525" y="55" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#00d4aa">API Gateway</text>
+        <!-- Services -->
+        <rect x="410" y="100" width="80" height="44" rx="6" fill="#0d2020" stroke="#6382ff" stroke-width="1"/>
+        <text x="450" y="119" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#6382ff">Cart</text>
+        <text x="450" y="134" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">:3001</text>
+        <rect x="505" y="100" width="80" height="44" rx="6" fill="#0d2020" stroke="#6382ff" stroke-width="1"/>
+        <text x="545" y="119" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#6382ff">Payment</text>
+        <text x="545" y="134" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">:3002</text>
+        <rect x="600" y="100" width="60" height="44" rx="6" fill="#0d2020" stroke="#6382ff" stroke-width="1"/>
+        <text x="630" y="119" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#6382ff">Ship</text>
+        <text x="630" y="134" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">:3003</text>
+        <!-- Arrows from gateway to services -->
+        <line x1="490" y1="68" x2="450" y2="100" stroke="#00d4aa" stroke-width="0.8" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <line x1="525" y1="68" x2="545" y2="100" stroke="#00d4aa" stroke-width="0.8" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <line x1="560" y1="68" x2="620" y2="100" stroke="#00d4aa" stroke-width="0.8" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <!-- DBs -->
+        <rect x="415" y="168" width="70" height="26" rx="4" fill="#0a1a10" stroke="rgba(0,212,170,0.2)" stroke-width="0.5"/>
+        <text x="450" y="185" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">DB 1</text>
+        <rect x="510" y="168" width="70" height="26" rx="4" fill="#0a1a10" stroke="rgba(0,212,170,0.2)" stroke-width="0.5"/>
+        <text x="545" y="185" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">DB 2</text>
+        <rect x="603" y="168" width="54" height="26" rx="4" fill="#0a1a10" stroke="rgba(0,212,170,0.2)" stroke-width="0.5"/>
+        <text x="630" y="185" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">DB 3</text>
+        <text x="525" y="232" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#00d4aa">✓ Scale only the service you need</text>
+      </svg>
+      <p class="diagram-label">Monolithic vs Microservices — independent services with isolated databases</p>
+    </div>
+
+    <div class="highlight yellow"><div class="label">★ T1 Q4</div>Company wants to scale only Cart service during seasonal sales → <strong>Microservices</strong>. Monolithic would require scaling the entire app wastefully.</div>
+
+    <h3>Key Characteristics</h3>
+    <ul class="bullets">
+      <li>Independently deployable and loosely coupled</li>
+      <li>Organized around business capabilities (Cart, Inventory, Payment)</li>
+      <li>Each service owns its own tech stack and database</li>
+      <li>Communicate via REST APIs, event streaming, or message brokers</li>
+      <li>Stateless processes — no session stored locally; state in external stores</li>
+      <li>Concurrency — multiple instances run in parallel</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 3: JSON -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m3">
+    <div class="section-label"><div class="section-num yellow">3</div><h2 class="section-title">JSON — Data Representation Language</h2></div>
+
+    <p>JavaScript Object Notation — lightweight, language-independent, self-describing data interchange format. Used when sending data between server and web page.</p>
+
+    <div class="card-grid">
+      <div class="card-sm"><h4>Strings</h4><p><code>"name": "Amit"</code></p></div>
+      <div class="card-sm"><h4>Number</h4><p><code>"age": 20</code></p></div>
+      <div class="card-sm"><h4>Boolean</h4><p><code>"active": true</code></p></div>
+      <div class="card-sm"><h4>Null</h4><p><code>"data": null</code></p></div>
+      <div class="card-sm"><h4>Object</h4><p><code>"addr": {"city":"Delhi"}</code></p></div>
+      <div class="card-sm"><h4>Array</h4><p><code>"marks": [85, 90, 78]</code></p></div>
+    </div>
+
+    <h3>JSON Schema (★ Exam Favourite)</h3>
+    <div class="highlight yellow"><div class="label">★ T2 Q2</div>Full JSON Schema question appeared. Know: $schema, type, required[], properties with minLength, minimum, maximum, enum, format.</div>
+    <pre><code class="json"><span class="cmt">// JSON Schema for student validation</span>
+{
+  <span class="str">"$schema"</span>: <span class="str">"http://json-schema.org/draft-07/schema#"</span>,
+  <span class="str">"type"</span>: <span class="str">"object"</span>,
+  <span class="str">"required"</span>: [<span class="str">"name"</span>, <span class="str">"age"</span>, <span class="str">"course"</span>, <span class="str">"marks"</span>, <span class="str">"email"</span>],
+  <span class="str">"properties"</span>: {
+    <span class="str">"name"</span>:   { <span class="str">"type"</span>: <span class="str">"string"</span>, <span class="str">"minLength"</span>: <span class="num">3</span> },
+    <span class="str">"age"</span>:    { <span class="str">"type"</span>: <span class="str">"integer"</span>, <span class="str">"minimum"</span>: <span class="num">17</span>, <span class="str">"maximum"</span>: <span class="num">30</span> },
+    <span class="str">"marks"</span>:  { <span class="str">"type"</span>: <span class="str">"integer"</span>, <span class="str">"minimum"</span>: <span class="num">0</span>, <span class="str">"maximum"</span>: <span class="num">100</span> },
+    <span class="str">"course"</span>: { <span class="str">"type"</span>: <span class="str">"string"</span>, <span class="str">"enum"</span>: [<span class="str">"Computer Science"</span>, <span class="str">"IT"</span>, <span class="str">"Data Science"</span>] },
+    <span class="str">"email"</span>:  { <span class="str">"type"</span>: <span class="str">"string"</span>, <span class="str">"format"</span>: <span class="str">"email"</span> }
+  }
+}</code></pre>
+
+    <h3>JSON.parse() and JSON.stringify()</h3>
+    <pre><code><span class="kw">const</span> obj = JSON.<span class="fn">parse</span>(text);       <span class="cmt">// JSON string → JavaScript object</span>
+<span class="kw">const</span> json = JSON.<span class="fn">stringify</span>(obj);  <span class="cmt">// JavaScript object → JSON string</span></code></pre>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 4: REST API -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m4">
+    <div class="section-label"><div class="section-num">4</div><h2 class="section-title">REST API & Web Services</h2></div>
+
+    <p>REST = Representational State Transfer. An architectural style for designing APIs using HTTP. Each request contains all info needed (stateless). Highly scalable.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>HTTP Method</th><th>CRUD</th><th>Description</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>GET</code></td><td>Read</td><td>Retrieve resource(s)</td><td><code>GET /students</code></td></tr>
+          <tr><td><code>POST</code></td><td>Create</td><td>Create new resource</td><td><code>POST /students</code></td></tr>
+          <tr><td><code>PUT</code></td><td>Update (full)</td><td>Replace entire resource</td><td><code>PUT /students/1</code></td></tr>
+          <tr><td><code>PATCH</code></td><td>Update (partial)</td><td>Update specific fields</td><td><code>PATCH /students/1</code></td></tr>
+          <tr><td><code>DELETE</code></td><td>Delete</td><td>Remove resource</td><td><code>DELETE /students/1</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>HTTP Status Codes</h3>
+    <div class="card-grid">
+      <div class="card-sm"><h4><span class="badge green">200 OK</span></h4><p>Request succeeded</p></div>
+      <div class="card-sm"><h4><span class="badge blue">201 Created</span></h4><p>Resource created successfully</p></div>
+      <div class="card-sm"><h4><span class="badge blue">204 No Content</span></h4><p>Success but no body (DELETE)</p></div>
+      <div class="card-sm"><h4><span class="badge red">404 Not Found</span></h4><p>Resource doesn't exist</p></div>
+      <div class="card-sm"><h4><span class="badge red">400 Bad Request</span></h4><p>Client-side error</p></div>
+      <div class="card-sm"><h4><span class="badge red">500 Server Error</span></h4><p>Server-side failure</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 5: NODE.JS -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m5">
+    <div class="section-label"><div class="section-num green">5</div><h2 class="section-title">Node.js, Express.js & Microservices Code</h2></div>
+
+    <p>Node.js is an open-source server environment using JavaScript on the server. Non-blocking, asynchronous I/O via a single-threaded event loop. Express.js is its minimal web framework for building REST APIs.</p>
+
+    <h3>Microservices Pattern (★ T2 Q1 — 10 marks)</h3>
+    <div class="highlight yellow"><div class="label">★ Exam Pattern</div>T2 Q1 = full microservices app. Make-up Q2 = blogging REST API. Always: setup → array store → 4 CRUD routes → listen on port.</div>
+
+    <pre><code><span class="cmt">// product-service.js — Port 3001</span>
+<span class="kw">const</span> express = <span class="fn">require</span>(<span class="str">'express'</span>);
+<span class="kw">const</span> app = <span class="fn">express</span>();
+app.<span class="fn">use</span>(express.<span class="fn">json</span>());
+<span class="kw">let</span> products = []; <span class="kw">let</span> id = <span class="num">1</span>;
+
+app.<span class="fn">get</span>(<span class="str">'/products'</span>, (req, res) => res.<span class="fn">json</span>(products));
+app.<span class="fn">post</span>(<span class="str">'/products'</span>, (req, res) => {
+  <span class="kw">const</span> p = { id: id++, ...req.body }; products.<span class="fn">push</span>(p); res.<span class="fn">json</span>(p);
+});
+app.<span class="fn">put</span>(<span class="str">'/products/:id'</span>, (req, res) => {
+  <span class="kw">const</span> p = products.<span class="fn">find</span>(p => p.id == req.params.id);
+  <span class="kw">if</span> (p) { Object.<span class="fn">assign</span>(p, req.body); res.<span class="fn">json</span>(p); }
+  <span class="kw">else</span> res.<span class="fn">status</span>(<span class="num">404</span>).<span class="fn">send</span>(<span class="str">'Not found'</span>);
+});
+app.<span class="fn">delete</span>(<span class="str">'/products/:id'</span>, (req, res) => {
+  products = products.<span class="fn">filter</span>(p => p.id != req.params.id);
+  res.<span class="fn">send</span>(<span class="str">'Deleted'</span>);
+});
+app.<span class="fn">listen</span>(<span class="num">3001</span>);
+
+<span class="cmt">// api-gateway.js — Port 3000</span>
+<span class="kw">const</span> { createProxyMiddleware } = <span class="fn">require</span>(<span class="str">'http-proxy-middleware'</span>);
+app.<span class="fn">use</span>(<span class="str">'/products'</span>, <span class="fn">createProxyMiddleware</span>({ target: <span class="str">'http://localhost:3001'</span>, changeOrigin: <span class="kw">true</span> }));
+app.<span class="fn">use</span>(<span class="str">'/orders'</span>,   <span class="fn">createProxyMiddleware</span>({ target: <span class="str">'http://localhost:3002'</span>, changeOrigin: <span class="kw">true</span> }));
+app.<span class="fn">listen</span>(<span class="num">3000</span>);</code></pre>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 6: MONGODB -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m6">
+    <div class="section-label"><div class="section-num yellow">6</div><h2 class="section-title">MongoDB</h2></div>
+
+    <p>Document database storing data in JSON-like BSON format. NoSQL — flexible schema, horizontally scalable. MongoDB Atlas = cloud version.</p>
+
+    <h3>Key Commands (★ All CRUD)</h3>
+    <div class="cmd-table">
+      <div class="cmd-row"><div class="cmd-code">use university</div><div class="cmd-desc">Switch to / create database</div></div>
+      <div class="cmd-row"><div class="cmd-code">db.students.insertOne({...})</div><div class="cmd-desc">Insert single document</div></div>
+      <div class="cmd-row"><div class="cmd-code">db.students.insertMany([{...},{...}])</div><div class="cmd-desc">Insert multiple documents</div></div>
+      <div class="cmd-row"><div class="cmd-code">db.students.find()</div><div class="cmd-desc">Get all documents</div></div>
+      <div class="cmd-row"><div class="cmd-code">db.students.find({ course: "CS" })</div><div class="cmd-desc">Get with filter condition</div></div>
+      <div class="cmd-row"><div class="cmd-code">db.students.updateOne({ name:"Amit" }, { $set: { marks: 90 } })</div><div class="cmd-desc">⚠ Update — MUST use $set (worth 2 marks!)</div></div>
+      <div class="cmd-row"><div class="cmd-code">db.students.deleteOne({ name: "Amit" })</div><div class="cmd-desc">Delete one document</div></div>
+      <div class="cmd-row"><div class="cmd-code">db.students.deleteMany({ dept: "HR" })</div><div class="cmd-desc">Delete multiple documents</div></div>
+    </div>
+
+    <div class="highlight red"><div class="label">★ Critical</div>The <code>$set</code> operator in <code>updateOne()</code> carries 2 marks on its own. Writing <code>db.students.updateOne({name:"Amit"}, {marks:90})</code> without $set = 0 marks for that part.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 7: DOCKER -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m7">
+    <div class="priority"><span class="star">★★★</span><p><strong>PPT 9 — Docker</strong> | High Priority | Foundation for Swarm, ECS, and Kubernetes</p></div>
+    <div class="section-label"><div class="section-num red">7</div><h2 class="section-title">Docker & Containerization</h2></div>
+
+    <p>Docker is an open platform for developing, shipping, and running applications in containers — isolated, portable environments. Solves "works on my machine" problem.</p>
+
+    <!-- Docker Architecture Diagram -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" role="img">
+        <title>Docker Architecture</title>
+        <!-- Docker Client -->
+        <rect x="20" y="40" width="140" height="220" rx="10" fill="#0d1520" stroke="#6382ff" stroke-width="1"/>
+        <text x="90" y="65" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#6382ff">Docker Client</text>
+        <rect x="34" y="80" width="112" height="28" rx="5" fill="#111d2e" stroke="rgba(99,130,255,0.3)" stroke-width="0.5"/>
+        <text x="90" y="98" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">docker build</text>
+        <rect x="34" y="116" width="112" height="28" rx="5" fill="#111d2e" stroke="rgba(99,130,255,0.3)" stroke-width="0.5"/>
+        <text x="90" y="134" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">docker pull</text>
+        <rect x="34" y="152" width="112" height="28" rx="5" fill="#111d2e" stroke="rgba(99,130,255,0.3)" stroke-width="0.5"/>
+        <text x="90" y="170" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">docker run</text>
+        <rect x="34" y="188" width="112" height="28" rx="5" fill="#111d2e" stroke="rgba(99,130,255,0.3)" stroke-width="0.5"/>
+        <text x="90" y="206" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">docker push</text>
+        <text x="90" y="244" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">CLI commands</text>
+        <!-- Arrow to daemon -->
+        <line x1="160" y1="150" x2="210" y2="150" stroke="#6382ff" stroke-width="1" stroke-opacity="0.6" marker-end="url(#arr)"/>
+        <text x="185" y="144" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">REST API</text>
+        <!-- Docker Daemon -->
+        <rect x="210" y="40" width="200" height="220" rx="10" fill="#0d1520" stroke="#00d4aa" stroke-width="1.5"/>
+        <text x="310" y="65" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#00d4aa">Docker Daemon</text>
+        <text x="310" y="80" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">dockerd</text>
+        <!-- Images in daemon -->
+        <rect x="224" y="96" width="80" height="44" rx="5" fill="#111d2e" stroke="#6382ff" stroke-width="0.5"/>
+        <text x="264" y="116" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#6382ff">Image</text>
+        <text x="264" y="130" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">ubuntu</text>
+        <rect x="316" y="96" width="80" height="44" rx="5" fill="#111d2e" stroke="#6382ff" stroke-width="0.5"/>
+        <text x="356" y="116" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#6382ff">Image</text>
+        <text x="356" y="130" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">node:18</text>
+        <!-- Containers in daemon -->
+        <rect x="224" y="158" width="80" height="44" rx="5" fill="#0a1a10" stroke="#00d4aa" stroke-width="0.5"/>
+        <text x="264" y="178" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#00d4aa">Container</text>
+        <text x="264" y="192" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">c1</text>
+        <rect x="316" y="158" width="80" height="44" rx="5" fill="#0a1a10" stroke="#00d4aa" stroke-width="0.5"/>
+        <text x="356" y="178" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#00d4aa">Container</text>
+        <text x="356" y="192" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">c2</text>
+        <text x="310" y="240" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">manages images &amp; containers</text>
+        <!-- Arrow to registry -->
+        <line x1="410" y1="150" x2="460" y2="150" stroke="#ffd166" stroke-width="1" stroke-opacity="0.6" marker-end="url(#arr)"/>
+        <text x="435" y="144" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">push/pull</text>
+        <!-- Docker Registry -->
+        <rect x="460" y="40" width="200" height="220" rx="10" fill="#0d1520" stroke="#ffd166" stroke-width="1"/>
+        <text x="560" y="65" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#ffd166">Docker Registry</text>
+        <text x="560" y="80" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">hub.docker.com</text>
+        <rect x="476" y="96" width="80" height="44" rx="5" fill="#1a1a10" stroke="rgba(255,209,102,0.3)" stroke-width="0.5"/>
+        <text x="516" y="116" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#ffd166">nginx</text>
+        <text x="516" y="130" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">latest</text>
+        <rect x="568" y="96" width="80" height="44" rx="5" fill="#1a1a10" stroke="rgba(255,209,102,0.3)" stroke-width="0.5"/>
+        <text x="608" y="116" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#ffd166">node</text>
+        <text x="608" y="130" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">18-alpine</text>
+        <rect x="476" y="158" width="80" height="44" rx="5" fill="#1a1a10" stroke="rgba(255,209,102,0.3)" stroke-width="0.5"/>
+        <text x="516" y="178" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#ffd166">mongo</text>
+        <text x="516" y="192" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">7.0</text>
+        <rect x="568" y="158" width="80" height="44" rx="5" fill="#1a1a10" stroke="rgba(255,209,102,0.3)" stroke-width="0.5"/>
+        <text x="608" y="178" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#ffd166">ubuntu</text>
+        <text x="608" y="192" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">22.04</text>
+        <text x="560" y="240" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">public image repository</text>
+      </svg>
+      <p class="diagram-label">Docker Architecture: Client → Daemon (manages images & containers) ↔ Registry</p>
+    </div>
+
+    <h3>Dockerfile — Every Instruction Explained</h3>
+    <pre><code><span class="kw">FROM</span> node:<span class="num">18</span>             <span class="cmt"># Base image — must be first instruction</span>
+<span class="kw">WORKDIR</span> /app             <span class="cmt"># Set working directory inside container</span>
+<span class="kw">COPY</span> package*.json ./    <span class="cmt"># Copy package files (cached layer — efficient)</span>
+<span class="kw">RUN</span> npm install          <span class="cmt"># Execute during BUILD (installs dependencies)</span>
+<span class="kw">COPY</span> . .                 <span class="cmt"># Copy rest of source code</span>
+<span class="kw">EXPOSE</span> <span class="num">3000</span>              <span class="cmt"># Document the port app uses</span>
+<span class="kw">CMD</span> [<span class="str">"node"</span>, <span class="str">"index.js"</span>] <span class="cmt"># Command when container STARTS</span>
+
+<span class="cmt"># Build and run:</span>
+docker build -t myapp:v1 .
+docker run -it -p <span class="num">3000</span>:<span class="num">3000</span> myapp:v1</code></pre>
+
+    <h3>Docker CLI Commands</h3>
+    <div class="cmd-table">
+      <div class="cmd-row"><div class="cmd-code">docker images</div><div class="cmd-desc">List all images</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker pull ubuntu</div><div class="cmd-desc">Pull image from Docker Hub</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker run --name c1 ubuntu</div><div class="cmd-desc">Run container with custom name</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker run -it ubuntu</div><div class="cmd-desc">Interactive mode (-it = interactive TTY)</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker container ls</div><div class="cmd-desc">Show running containers</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker container ls --all</div><div class="cmd-desc">Show ALL containers (including stopped)</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker exec c1 ls</div><div class="cmd-desc">Execute command inside running container</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker image rm imageId</div><div class="cmd-desc">Remove image</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker inspect imageName</div><div class="cmd-desc">See image metadata</div></div>
+    </div>
+
+    <h3>Push to Docker Hub</h3>
+    <pre><code>docker login
+docker tag myapp:<span class="num">v1</span> username/repo:<span class="num">v1</span>   <span class="cmt"># Tag with hub location</span>
+docker push username/repo:<span class="num">v1</span>           <span class="cmt"># Push to registry</span></code></pre>
+
+    <h3>Network Drivers</h3>
+    <ul class="bullets">
+      <li><strong>Bridge (default):</strong> Software bridge for containers on same host. Containers on same bridge can communicate. Default bridge auto-created.</li>
+      <li><strong>Host:</strong> Container shares host's network directly</li>
+      <li><strong>None:</strong> No networking</li>
+      <li><strong>Overlay:</strong> Multi-host networking (Docker Swarm)</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 8: DOCKER SWARM -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m8">
+    <div class="priority"><span class="star">★★★</span><p><strong>PPT 10 — Docker Swarm</strong> | High Priority | Container Orchestration</p></div>
+    <div class="section-label"><div class="section-num red">8</div><h2 class="section-title">Docker Swarm — Container Orchestration</h2></div>
+
+    <p>Docker Swarm is Docker's native clustering tool. It groups Docker hosts into a cluster (swarm) and automates deployment, scaling, and management of containers across nodes.</p>
+
+    <!-- Docker Swarm Architecture -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" role="img">
+        <title>Docker Swarm Architecture</title>
+        <!-- Swarm border -->
+        <rect x="10" y="10" width="660" height="300" rx="14" fill="none" stroke="rgba(99,130,255,0.2)" stroke-width="1" stroke-dasharray="6,4"/>
+        <text x="340" y="28" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#5a6280" font-weight="500">DOCKER SWARM CLUSTER</text>
+        <!-- Manager node -->
+        <rect x="240" y="42" width="200" height="90" rx="10" fill="#0d1520" stroke="#6382ff" stroke-width="1.5"/>
+        <text x="340" y="66" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#6382ff">Manager Node</text>
+        <rect x="256" y="76" width="75" height="24" rx="4" fill="#111d2e" stroke="rgba(99,130,255,0.3)" stroke-width="0.5"/>
+        <text x="293" y="92" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Raft Consensus</text>
+        <rect x="349" y="76" width="75" height="24" rx="4" fill="#111d2e" stroke="rgba(99,130,255,0.3)" stroke-width="0.5"/>
+        <text x="386" y="92" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Task Scheduler</text>
+        <text x="340" y="122" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">orchestrates cluster state</text>
+        <!-- Worker nodes -->
+        <rect x="30" y="178" width="170" height="110" rx="10" fill="#0a1a10" stroke="#00d4aa" stroke-width="1"/>
+        <text x="115" y="200" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#00d4aa">Worker Node 1</text>
+        <rect x="46" y="212" width="138" height="24" rx="4" fill="#111d2e" stroke="rgba(0,212,170,0.25)" stroke-width="0.5"/>
+        <text x="115" y="228" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Task (container)</text>
+        <rect x="46" y="244" width="138" height="24" rx="4" fill="#111d2e" stroke="rgba(0,212,170,0.25)" stroke-width="0.5"/>
+        <text x="115" y="260" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Task (container)</text>
+        <text x="115" y="278" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">kubelet + docker</text>
+
+        <rect x="255" y="178" width="170" height="110" rx="10" fill="#0a1a10" stroke="#00d4aa" stroke-width="1"/>
+        <text x="340" y="200" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#00d4aa">Worker Node 2</text>
+        <rect x="271" y="212" width="138" height="24" rx="4" fill="#111d2e" stroke="rgba(0,212,170,0.25)" stroke-width="0.5"/>
+        <text x="340" y="228" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Task (container)</text>
+        <rect x="271" y="244" width="66" height="24" rx="4" fill="#1a0810" stroke="rgba(255,107,107,0.3)" stroke-width="0.5"/>
+        <text x="304" y="260" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#ff6b6b">💀 crashed</text>
+        <rect x="343" y="244" width="66" height="24" rx="4" fill="#0a1a10" stroke="rgba(0,212,170,0.4)" stroke-width="1"/>
+        <text x="376" y="260" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#00d4aa">✓ new task</text>
+        <text x="340" y="278" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#00d4aa">auto self-healed!</text>
+
+        <rect x="480" y="178" width="170" height="110" rx="10" fill="#0a1a10" stroke="#00d4aa" stroke-width="1"/>
+        <text x="565" y="200" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#00d4aa">Worker Node 3</text>
+        <rect x="496" y="212" width="138" height="24" rx="4" fill="#111d2e" stroke="rgba(0,212,170,0.25)" stroke-width="0.5"/>
+        <text x="565" y="228" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Task (container)</text>
+        <text x="565" y="268" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">executing service</text>
+        <!-- Arrows from manager to workers -->
+        <line x1="300" y1="132" x2="180" y2="178" stroke="#6382ff" stroke-width="1" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <line x1="340" y1="132" x2="340" y2="178" stroke="#6382ff" stroke-width="1" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <line x1="380" y1="132" x2="500" y2="178" stroke="#6382ff" stroke-width="1" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <text x="200" y="162" font-family="Space Grotesk" font-size="9" fill="#5a6280">assigns tasks</text>
+      </svg>
+      <p class="diagram-label">Docker Swarm: Manager dispatches tasks to workers. Self-healing replaces crashed containers.</p>
+    </div>
+
+    <h3>Swarm CLI Commands</h3>
+    <div class="cmd-table">
+      <div class="cmd-row"><div class="cmd-code">docker swarm init</div><div class="cmd-desc">Initialize swarm (current node = manager)</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker swarm join --token &lt;TOKEN&gt; &lt;IP&gt;:2377</div><div class="cmd-desc">Worker joins swarm</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker swarm join-token worker</div><div class="cmd-desc">Get worker join command/token</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker swarm leave</div><div class="cmd-desc">Node leaves swarm (--force for manager)</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker node ls</div><div class="cmd-desc">List all nodes in swarm</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker node promote &lt;node&gt;</div><div class="cmd-desc">Promote worker → manager</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker service create --name web --replicas 3 nginx</div><div class="cmd-desc">Create service with 3 replicas</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker service ls</div><div class="cmd-desc">List all services</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker service ps web</div><div class="cmd-desc">List tasks of a service</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker service scale web=5</div><div class="cmd-desc">Scale service to 5 replicas</div></div>
+      <div class="cmd-row"><div class="cmd-code">docker service rm web</div><div class="cmd-desc">Remove service</div></div>
+    </div>
+
+    <h3>Benefits of Orchestration</h3>
+    <div class="card-grid">
+      <div class="card-sm"><h4>🤖 Automation</h4><p>Auto deployment, scaling, management. Reduces human error, speeds release.</p></div>
+      <div class="card-sm"><h4>📈 Scalability</h4><p>Add/remove containers based on demand. Handles traffic spikes automatically.</p></div>
+      <div class="card-sm"><h4>💓 High Availability</h4><p>Containers distributed across nodes. Auto-failover on failure.</p></div>
+      <div class="card-sm"><h4>♻ Self-Healing</h4><p>Detects crashed containers, auto-creates new task. Desired state maintained.</p></div>
+      <div class="card-sm"><h4>⚖ Load Balancing</h4><p>Built-in service discovery. Routes traffic to healthy instances.</p></div>
+      <div class="card-sm"><h4>🔧 Resource Optimization</h4><p>Efficiently allocates containers to available resources across nodes.</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 9: AWS ECS -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m9">
+    <div class="priority"><span class="star">★★★</span><p><strong>PPT 11 — AWS ECS</strong> | High Priority | AWS Container Service</p></div>
+    <div class="section-label"><div class="section-num red">9</div><h2 class="section-title">AWS ECS — Elastic Container Service</h2></div>
+
+    <p>Amazon ECS is a highly scalable container orchestration service managing Docker containers on EC2 instances or AWS Fargate. Handles scheduling, scaling, and load balancing of containerized apps.</p>
+
+    <!-- ECS Architecture Diagram -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" role="img">
+        <title>AWS ECS Architecture Components</title>
+        <!-- Outer: Cluster -->
+        <rect x="10" y="30" width="660" height="290" rx="14" fill="#0d1520" stroke="#ffd166" stroke-width="1" stroke-dasharray="6,4"/>
+        <text x="340" y="52" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#ffd166">ECS Cluster (cbse25)</text>
+        <!-- Service box -->
+        <rect x="30" y="66" width="620" height="240" rx="10" fill="#111827" stroke="#ff6b6b" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="340" y="86" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#ff6b6b">Service (maintains desired count, auto-heals)</text>
+        <!-- Task 1 -->
+        <rect x="50" y="102" width="170" height="180" rx="8" fill="#0a0e1a" stroke="#00d4aa" stroke-width="1"/>
+        <text x="135" y="124" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#00d4aa">Task 1</text>
+        <rect x="66" y="136" width="138" height="34" rx="5" fill="#0d2020" stroke="rgba(0,212,170,0.3)" stroke-width="0.5"/>
+        <text x="135" y="150" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Container</text>
+        <text x="135" y="163" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">myapp:latest</text>
+        <rect x="66" y="178" width="138" height="24" rx="4" fill="#0d1520" stroke="rgba(0,212,170,0.2)" stroke-width="0.5"/>
+        <text x="135" y="194" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">port: 3000</text>
+        <text x="135" y="232" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">CPU: 256 | Mem: 512</text>
+        <text x="135" y="248" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">Task Definition →</text>
+        <text x="135" y="263" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">blueprint config</text>
+        <!-- Task 2 -->
+        <rect x="255" y="102" width="170" height="180" rx="8" fill="#0a0e1a" stroke="#00d4aa" stroke-width="1"/>
+        <text x="340" y="124" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#00d4aa">Task 2</text>
+        <rect x="271" y="136" width="138" height="34" rx="5" fill="#0d2020" stroke="rgba(0,212,170,0.3)" stroke-width="0.5"/>
+        <text x="340" y="150" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Container</text>
+        <text x="340" y="163" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">myapp:latest</text>
+        <rect x="271" y="178" width="138" height="24" rx="4" fill="#0d1520" stroke="rgba(0,212,170,0.2)" stroke-width="0.5"/>
+        <text x="340" y="194" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#5a6280">port: 3000</text>
+        <!-- Task 3 (new) -->
+        <rect x="460" y="102" width="170" height="180" rx="8" fill="#0a0e1a" stroke="#6382ff" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="545" y="124" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#6382ff">Task 3 (scaling)</text>
+        <rect x="476" y="136" width="138" height="34" rx="5" fill="#0d1520" stroke="rgba(99,130,255,0.3)" stroke-width="0.5"/>
+        <text x="545" y="150" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Container</text>
+        <text x="545" y="163" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">myapp:latest</text>
+        <text x="545" y="220" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#6382ff">auto-scaled</text>
+        <text x="545" y="235" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#6382ff">via Auto Scaling</text>
+        <!-- ECR arrow -->
+        <text x="340" y="305" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">Images pulled from ECR (Elastic Container Registry)</text>
+      </svg>
+      <p class="diagram-label">ECS Cluster → Service → Tasks (running containers pulled from ECR)</p>
+    </div>
+
+    <h3>Key ECS Components</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Component</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ECR</strong></td><td>Elastic Container Registry — AWS's private Docker image registry. Push your image here before deploying.</td></tr>
+          <tr><td><strong>Cluster</strong></td><td>Logical grouping of tasks/services. Can have multiple services (auth, db, api…)</td></tr>
+          <tr><td><strong>Task Definition</strong></td><td>Blueprint: image, CPU/memory, ports, env vars. Like a Dockerfile for the whole task.</td></tr>
+          <tr><td><strong>Task</strong></td><td>Running instance of a task definition. Created/managed by a Service.</td></tr>
+          <tr><td><strong>Service</strong></td><td>Maintains desired count of tasks, restarts crashed ones, handles scaling and load balancing.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>ECS Deployment Steps</h3>
+    <div class="steps">
+      <div class="step"><p><strong>Build</strong> Docker image: <code>docker build -t myapp .</code></p></div>
+      <div class="step"><p><strong>Push to ECR:</strong> tag image and push using ECR push commands from AWS Console</p></div>
+      <div class="step"><p><strong>Create ECS Cluster</strong> — EC2 or Fargate launch type</p></div>
+      <div class="step"><p><strong>Create Task Definition</strong> referencing ECR image URI, CPU/memory, port</p></div>
+      <div class="step"><p><strong>Create Service</strong> specifying task, replica count, load balancer</p></div>
+      <div class="step"><p><strong>Configure Auto Scaling</strong> — scale when CPU > 70%, min 1 / max 10</p></div>
+      <div class="step"><p><strong>Access</strong> via Load Balancer DNS endpoint</p></div>
+    </div>
+
+    <h3>EC2 vs Fargate Launch Types</h3>
+    <div class="compare-grid">
+      <div class="compare-card blue"><h4>EC2 Launch Type</h4><ul class="bullets"><li>Containers on EC2 instances you manage</li><li>You handle OS patching, capacity</li><li>More control, more responsibility</li></ul></div>
+      <div class="compare-card green"><h4>Fargate (Serverless)</h4><ul class="bullets"><li>AWS manages infrastructure completely</li><li>You define task (CPU/memory) only</li><li>Pay only for vCPU + memory used</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 10: KUBERNETES -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m10">
+    <div class="priority"><span class="star">★★★</span><p><strong>PPT 12 — Kubernetes</strong> | Highest Priority | Master architecture well</p></div>
+    <div class="section-label"><div class="section-num red">10</div><h2 class="section-title">Kubernetes (K8s)</h2></div>
+
+    <p>Open-source container orchestration tool. Written in Go, developed by Google, donated to CNCF. Groups containers into logical units. Works with public, hybrid, on-premises cloud. K8s = 8 letters between K and s.</p>
+
+    <!-- Kubernetes Architecture Diagram -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg" role="img">
+        <title>Kubernetes Master-Worker Architecture</title>
+        <!-- Master node -->
+        <rect x="10" y="10" width="660" height="160" rx="12" fill="#0d1520" stroke="#6382ff" stroke-width="1.5"/>
+        <text x="340" y="34" text-anchor="middle" font-family="Space Grotesk" font-size="13" font-weight="600" fill="#6382ff">Master Node (Control Plane)</text>
+        <!-- API Server -->
+        <rect x="30" y="50" width="140" height="100" rx="8" fill="#111d2e" stroke="rgba(99,130,255,0.4)" stroke-width="1"/>
+        <text x="100" y="76" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#6382ff">API Server</text>
+        <text x="100" y="94" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#9ba3c0">Entry point for all</text>
+        <text x="100" y="108" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#9ba3c0">REST commands</text>
+        <text x="100" y="122" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">kubectl talks here</text>
+        <text x="100" y="138" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">validates API objects</text>
+        <!-- Scheduler -->
+        <rect x="185" y="50" width="130" height="100" rx="8" fill="#111d2e" stroke="rgba(99,130,255,0.4)" stroke-width="1"/>
+        <text x="250" y="76" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#6382ff">Scheduler</text>
+        <text x="250" y="94" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#9ba3c0">Assigns pods</text>
+        <text x="250" y="108" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#9ba3c0">to worker nodes</text>
+        <text x="250" y="122" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">tracks resource</text>
+        <text x="250" y="136" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">utilization</text>
+        <!-- Controller Manager -->
+        <rect x="330" y="50" width="150" height="100" rx="8" fill="#111d2e" stroke="rgba(99,130,255,0.4)" stroke-width="1"/>
+        <text x="405" y="76" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#6382ff">Controller Mgr</text>
+        <text x="405" y="94" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#9ba3c0">Non-terminating loop</text>
+        <text x="405" y="108" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#9ba3c0">desired state = current</text>
+        <text x="405" y="122" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">replication, endpoint,</text>
+        <text x="405" y="136" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">namespace controllers</text>
+        <!-- etcd -->
+        <rect x="498" y="50" width="152" height="100" rx="8" fill="#111d2e" stroke="rgba(99,130,255,0.4)" stroke-width="1"/>
+        <text x="574" y="76" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#6382ff">etcd</text>
+        <text x="574" y="94" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#9ba3c0">Distributed key-value</text>
+        <text x="574" y="108" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#9ba3c0">database (cluster state)</text>
+        <text x="574" y="122" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">config maps, subnets</text>
+        <text x="574" y="136" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#5a6280">written in Go</text>
+        <!-- kubectl label -->
+        <text x="30" y="182" font-family="Space Grotesk" font-size="10" fill="#5a6280">kubectl (CLI)</text>
+        <line x1="80" y1="175" x2="80" y2="150" stroke="#6382ff" stroke-width="0.8" stroke-opacity="0.5" marker-end="url(#arr)"/>
+
+        <!-- Worker nodes -->
+        <rect x="10" y="200" width="210" height="165" rx="12" fill="#0a1a10" stroke="#00d4aa" stroke-width="1"/>
+        <text x="115" y="224" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#00d4aa">Worker Node 1</text>
+        <rect x="26" y="236" width="178" height="24" rx="5" fill="#111d2e" stroke="rgba(0,212,170,0.3)" stroke-width="0.5"/>
+        <text x="115" y="252" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Kubelet (node agent)</text>
+        <rect x="26" y="268" width="178" height="24" rx="5" fill="#111d2e" stroke="rgba(0,212,170,0.3)" stroke-width="0.5"/>
+        <text x="115" y="284" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Kube-proxy (networking)</text>
+        <rect x="26" y="300" width="82" height="34" rx="5" fill="#0d2020" stroke="rgba(0,212,170,0.4)" stroke-width="0.5"/>
+        <text x="67" y="314" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#00d4aa">Pod 1</text>
+        <text x="67" y="327" text-anchor="middle" font-family="Space Grotesk" font-size="8" fill="#5a6280">c1, c2</text>
+        <rect x="122" y="300" width="82" height="34" rx="5" fill="#0d2020" stroke="rgba(0,212,170,0.4)" stroke-width="0.5"/>
+        <text x="163" y="314" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#00d4aa">Pod 2</text>
+        <text x="163" y="327" text-anchor="middle" font-family="Space Grotesk" font-size="8" fill="#5a6280">c1</text>
+
+        <rect x="235" y="200" width="210" height="165" rx="12" fill="#0a1a10" stroke="#00d4aa" stroke-width="1"/>
+        <text x="340" y="224" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#00d4aa">Worker Node 2</text>
+        <rect x="251" y="236" width="178" height="24" rx="5" fill="#111d2e" stroke="rgba(0,212,170,0.3)" stroke-width="0.5"/>
+        <text x="340" y="252" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Kubelet (node agent)</text>
+        <rect x="251" y="268" width="178" height="24" rx="5" fill="#111d2e" stroke="rgba(0,212,170,0.3)" stroke-width="0.5"/>
+        <text x="340" y="284" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Kube-proxy (networking)</text>
+        <rect x="251" y="300" width="82" height="34" rx="5" fill="#0d2020" stroke="rgba(0,212,170,0.4)" stroke-width="0.5"/>
+        <text x="292" y="314" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#00d4aa">Pod 3</text>
+        <rect x="347" y="300" width="82" height="34" rx="5" fill="#1a0810" stroke="rgba(255,107,107,0.4)" stroke-width="0.5"/>
+        <text x="388" y="314" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#ff6b6b">💀 crashed</text>
+        <text x="388" y="327" text-anchor="middle" font-family="Space Grotesk" font-size="8" fill="#ff6b6b">→ auto recreate</text>
+
+        <rect x="460" y="200" width="210" height="165" rx="12" fill="#0a1a10" stroke="#00d4aa" stroke-width="1"/>
+        <text x="565" y="224" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="600" fill="#00d4aa">Worker Node 3</text>
+        <rect x="476" y="236" width="178" height="24" rx="5" fill="#111d2e" stroke="rgba(0,212,170,0.3)" stroke-width="0.5"/>
+        <text x="565" y="252" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Kubelet (node agent)</text>
+        <rect x="476" y="268" width="178" height="24" rx="5" fill="#111d2e" stroke="rgba(0,212,170,0.3)" stroke-width="0.5"/>
+        <text x="565" y="284" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#9ba3c0">Kube-proxy (networking)</text>
+        <rect x="476" y="300" width="82" height="34" rx="5" fill="#0d2020" stroke="rgba(0,212,170,0.4)" stroke-width="0.5"/>
+        <text x="517" y="320" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#00d4aa">Pod 5</text>
+        <rect x="572" y="300" width="82" height="34" rx="5" fill="#0d2020" stroke="rgba(0,212,170,0.4)" stroke-width="0.5"/>
+        <text x="613" y="320" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#00d4aa">Pod 6</text>
+
+        <!-- Arrows from master to workers -->
+        <line x1="200" y1="170" x2="115" y2="200" stroke="#6382ff" stroke-width="0.8" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <line x1="340" y1="170" x2="340" y2="200" stroke="#6382ff" stroke-width="0.8" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <line x1="480" y1="170" x2="565" y2="200" stroke="#6382ff" stroke-width="0.8" stroke-opacity="0.5" marker-end="url(#arr)"/>
+      </svg>
+      <p class="diagram-label">Kubernetes Master-Worker Architecture. Master controls; Workers run pods. Pod crashes → auto-recreated.</p>
+    </div>
+
+    <h3>Master Node Components</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Component</th><th>Role</th><th>Key Detail</th></tr></thead>
+        <tbody>
+          <tr><td><strong>API Server</strong></td><td>Entry point for ALL REST commands</td><td>Users interact via kubectl. Validates and configures API objects.</td></tr>
+          <tr><td><strong>Scheduler</strong></td><td>Assigns pods to worker nodes</td><td>Tracks resource utilization. Places pods where resources are free.</td></tr>
+          <tr><td><strong>Controller Manager</strong></td><td>Ensures current = desired state</td><td>Non-terminating loop. Runs replication, endpoint, namespace controllers.</td></tr>
+          <tr><td><strong>etcd</strong></td><td>Distributed key-value store</td><td>Stores entire cluster state, config maps, subnets. Written in Go.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Worker Node Components</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Component</th><th>Role</th><th>Key Detail</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Kubelet</strong></td><td>Primary node agent</td><td>Gets pod specs from API server. Ensures containers are running and healthy. Tries to restart failed pods.</td></tr>
+          <tr><td><strong>Kube-proxy</strong></td><td>Core networking component</td><td>Maintains network across nodes/pods/containers. Load balancer for TCP/UDP. Exposes services externally.</td></tr>
+          <tr><td><strong>Pods</strong></td><td>Smallest deployable unit</td><td>Group of containers on same host. Ephemeral — crash = new pod with NEW IP. Use Services for stable IPs.</td></tr>
+          <tr><td><strong>Docker</strong></td><td>Container runtime</td><td>Packages and runs containers inside worker nodes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight red"><div class="label">★ Remember</div>Pod crashes → Kubernetes auto-creates a new pod with a NEW IP. Old IP breaks. That's why <strong>Kubernetes Services</strong> exist — to provide a stable network endpoint regardless of which pods are running.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- MODULE 11: MINIKUBE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="m11">
+    <div class="priority"><span class="star">★★★</span><p><strong>PPT 13 — Minikube</strong> | High Priority | Local Kubernetes + Full deployment example</p></div>
+    <div class="section-label"><div class="section-num red">11</div><h2 class="section-title">Minikube — Local Kubernetes</h2></div>
+
+    <p>Minikube runs a single-node Kubernetes cluster locally, inside a VM or container. Used for learning, development, and testing Kubernetes without a full cloud cluster.</p>
+
+    <h3>Minikube Commands</h3>
+    <div class="cmd-table">
+      <div class="cmd-row"><div class="cmd-code">minikube start</div><div class="cmd-desc">Start Minikube cluster</div></div>
+      <div class="cmd-row"><div class="cmd-code">minikube stop</div><div class="cmd-desc">Stop the cluster</div></div>
+      <div class="cmd-row"><div class="cmd-code">minikube delete</div><div class="cmd-desc">Delete the cluster</div></div>
+      <div class="cmd-row"><div class="cmd-code">minikube status</div><div class="cmd-desc">Check cluster status</div></div>
+      <div class="cmd-row"><div class="cmd-code">minikube start --nodes 3 --driver=docker</div><div class="cmd-desc">Start 3-node cluster with Docker driver</div></div>
+      <div class="cmd-row"><div class="cmd-code">minikube config set memory 4096</div><div class="cmd-desc">Set memory to 4GB</div></div>
+      <div class="cmd-row"><div class="cmd-code">minikube profile list</div><div class="cmd-desc">List all profiles</div></div>
+      <div class="cmd-row"><div class="cmd-code">minikube service web-app --url</div><div class="cmd-desc">Get URL to access deployed service</div></div>
+    </div>
+
+    <h3>kubectl Commands</h3>
+    <div class="cmd-table">
+      <div class="cmd-row"><div class="cmd-code">kubectl get nodes</div><div class="cmd-desc">List all nodes</div></div>
+      <div class="cmd-row"><div class="cmd-code">kubectl get pods -A</div><div class="cmd-desc">List all pods (all namespaces)</div></div>
+      <div class="cmd-row"><div class="cmd-code">kubectl get services</div><div class="cmd-desc">List services</div></div>
+      <div class="cmd-row"><div class="cmd-code">kubectl apply -f deployment.yaml</div><div class="cmd-desc">Deploy resources from config file</div></div>
+      <div class="cmd-row"><div class="cmd-code">kubectl delete -f deployment.yaml</div><div class="cmd-desc">Remove deployed resources</div></div>
+      <div class="cmd-row"><div class="cmd-code">kubectl scale deployment nginx --replicas=3</div><div class="cmd-desc">Scale deployment to 3 replicas</div></div>
+    </div>
+
+    <h3>Full Node.js Deployment on Kubernetes (PPT 13 Example)</h3>
+    <div class="highlight yellow"><div class="label">★ High Exam Probability</div>Scenario-based K8s deployment question very likely based on PPT 13. Know all 5 steps.</div>
+
+    <pre><code><span class="cmt">// Step 1: Node.js App (index.js)</span>
+<span class="kw">const</span> http = <span class="fn">require</span>(<span class="str">'http'</span>);
+<span class="kw">const</span> server = http.<span class="fn">createServer</span>((req, res) => {
+  res.<span class="fn">end</span>(<span class="str">'Hello from Node.js in Kubernetes!'</span>);
+});
+server.<span class="fn">listen</span>(<span class="num">3000</span>);</code></pre>
+
+    <pre><code><span class="cmt"># Step 2: Dockerfile</span>
+<span class="kw">FROM</span> node:<span class="num">18</span>
+<span class="kw">WORKDIR</span> /app
+<span class="kw">COPY</span> package*.json ./
+<span class="kw">RUN</span> npm install
+<span class="kw">COPY</span> . .
+<span class="kw">EXPOSE</span> <span class="num">3000</span>
+<span class="kw">CMD</span> [<span class="str">"node"</span>, <span class="str">"index.js"</span>]</code></pre>
+
+    <pre><code><span class="cmt"># Step 3: deployment.yaml</span>
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: <span class="num">2</span>          <span class="cmt"># 2 copies for high availability</span>
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web-container
+          image: my-k8s-app
+          ports:
+            - containerPort: <span class="num">3000</span></code></pre>
+
+    <pre><code><span class="cmt"># Step 4: service.yaml</span>
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app
+spec:
+  type: NodePort         <span class="cmt"># Exposes externally</span>
+  selector:
+    app: web
+  ports:
+    - port: <span class="num">80</span>
+      targetPort: <span class="num">3000</span></code></pre>
+
+    <pre><code><span class="cmt"># Step 5: Deploy Commands</span>
+minikube start
+<span class="fn">eval</span> $(minikube docker-env)       <span class="cmt"># Use Minikube's Docker</span>
+docker build -t my-k8s-app .
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+kubectl get pods                   <span class="cmt"># Verify pods running</span>
+minikube service web-app --url     <span class="cmt"># Get access URL</span>
+kubectl delete -f deployment.yaml  <span class="cmt"># Cleanup</span></code></pre>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- EXAM PATTERNS -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="patterns">
+    <div class="section-label"><div class="section-num yellow">★</div><h2 class="section-title">Exam Pattern Analysis</h2></div>
+
+    <h3>Past Paper Questions</h3>
+    <div class="exam-q">
+      <div class="q-label">T1 Q1 · 4 Marks · CO1</div>
+      <div class="q-text">Startup, festival sale, traffic 10×. Explain cloud characteristics that help.</div>
+      <div class="q-marks">→ Answer: 5 NIST characteristics + business advantages</div>
+    </div>
+    <div class="exam-q">
+      <div class="q-label">T1 Q2 · 4 Marks · CO1</div>
+      <div class="q-text">Research team, 6hrs/day analytics, can't afford termination. Spot/Reserved/Dedicated?</div>
+      <div class="q-marks">→ Answer: Reserved Instances (best balance of cost + guaranteed availability)</div>
+    </div>
+    <div class="exam-q">
+      <div class="q-label">T1 Q3 · 4 Marks · CO1</div>
+      <div class="q-text">Enterprise data center vs developer laptop — Type 1 or Type 2 hypervisor?</div>
+      <div class="q-marks">→ Enterprise: Type 1 (bare-metal). Developer: Type 2 (hosted)</div>
+    </div>
+    <div class="exam-q">
+      <div class="q-label">T2 Q1 · 10 Marks · CO2</div>
+      <div class="q-text">E-commerce with Product Service + Order Service + API Gateway using Node.js/Express.</div>
+      <div class="q-marks">→ Product (4) + Order (4) + Gateway (2)</div>
+    </div>
+    <div class="exam-q">
+      <div class="q-label">T2 Q2 · 5 Marks · CO3</div>
+      <div class="q-text">Write JSON Schema for student object with name, age, course, marks, email constraints.</div>
+      <div class="q-marks">→ $schema, type, required, properties with minLength/minimum/maximum/enum/format</div>
+    </div>
+    <div class="exam-q">
+      <div class="q-label">Make-up Q2 · 10 Marks · CO3</div>
+      <div class="q-text">Build REST API for blogging platform: title, content, author, date. Full CRUD.</div>
+      <div class="q-marks">→ API design (3) + CRUD Express impl (5) + data structure (2)</div>
+    </div>
+    <div class="exam-q">
+      <div class="q-label">Make-up Q3 · 4 Marks · CO4</div>
+      <div class="q-text">Match: Bare metal, Virtual server, Dedicated host, Reserved VM, Transient VM</div>
+      <div class="q-marks">→ HPC, Multi-tenant, Single-tenant, Long-term, Short-term</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- QUICK REFERENCE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section id="quickref">
+    <div class="section-label"><div class="section-num green">✓</div><h2 class="section-title">Quick Reference — Scenario Answers</h2></div>
+
+    <div class="highlight green"><div class="label">Pattern</div>Teacher loves scenario questions ("A company wants to..."). Always give: answer + reasoning + comparison with alternatives.</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Scenario</th><th>Answer</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Startup needs instant scale during festival sale</td><td>Cloud — Rapid Elasticity</td><td>Auto scale up/down; pay-as-you-go</td></tr>
+          <tr><td>Research team, 6hr/day, can't risk termination</td><td>Reserved Instances</td><td>Guaranteed capacity + stable</td></tr>
+          <tr><td>Dev wants multiple OS on laptop</td><td>Type 2 Hypervisor</td><td>Easy install, runs alongside apps</td></tr>
+          <tr><td>Enterprise secure production data center</td><td>Type 1 Hypervisor</td><td>Direct hardware, smaller attack surface</td></tr>
+          <tr><td>Scale only Cart service, not whole app</td><td>Microservices</td><td>Independent scaling per service</td></tr>
+          <tr><td>Devs want to focus only on code</td><td>PaaS</td><td>Provider handles OS, runtime, DB, middleware</td></tr>
+          <tr><td>Deploy containerized app on AWS</td><td>AWS ECS + Fargate</td><td>Managed orchestration, no EC2 to manage</td></tr>
+          <tr><td>Container auto-restarts when it crashes</td><td>Docker Swarm / Kubernetes</td><td>Self-healing maintains desired state</td></tr>
+          <tr><td>Local Kubernetes testing</td><td>Minikube</td><td>Single-node local K8s cluster</td></tr>
+          <tr><td>Sensitive government data + public portal</td><td>Hybrid Cloud</td><td>Private for sensitive data, public for scalability</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Container vs VM (Quick Comparison)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Feature</th><th>Virtual Machine</th><th>Container</th></tr></thead>
+        <tbody>
+          <tr><td>Isolation</td><td>Full OS (hypervisor)</td><td><strong>Process-level (shared kernel)</strong></td></tr>
+          <tr><td>Size</td><td>GBs (full OS)</td><td><strong>MBs</strong></td></tr>
+          <tr><td>Startup</td><td>Minutes</td><td><strong>Seconds</strong></td></tr>
+          <tr><td>Performance</td><td>Overhead (extra OS)</td><td><strong>Near-native</strong></td></tr>
+          <tr><td>Best for</td><td>Different OS types</td><td><strong>Microservices, cloud apps</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Docker Swarm vs Kubernetes</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Feature</th><th>Docker Swarm</th><th>Kubernetes</th></tr></thead>
+        <tbody>
+          <tr><td>Developed by</td><td>Docker Inc.</td><td>Google → CNCF</td></tr>
+          <tr><td>Setup</td><td>Simple (built-in Docker CLI)</td><td>Complex but powerful</td></tr>
+          <tr><td>Scaling</td><td>docker service scale</td><td>HPA (Horizontal Pod Autoscaler)</td></tr>
+          <tr><td>Self-healing</td><td>Yes — auto-restarts tasks</td><td>Yes — via controllers</td></tr>
+          <tr><td>Industry adoption</td><td>Smaller</td><td><strong>Industry standard</strong></td></tr>
+          <tr><td>Choose when</td><td>Simple apps, quick setup</td><td>Large scale, production enterprise</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight red"><div class="label">★ Critical Points for Exam</div>
+      <ul class="bullets" style="margin-top:8px">
+        <li>MongoDB <code>$set</code> in updateOne() = <strong>2 marks alone</strong>. Never skip it.</li>
+        <li>API Gateway code uses <code>http-proxy-middleware</code> with <code>createProxyMiddleware</code></li>
+        <li>Kubernetes pods are <strong>ephemeral</strong> — new IP on crash → use Services for stable endpoints</li>
+        <li>etcd = <strong>brain of Kubernetes</strong> — stores all cluster state</li>
+        <li>Kubelet = node agent that ensures pods are running on worker nodes</li>
+        <li>ECS relationship: <strong>ECR → Task Definition → Task → Service → Cluster</strong></li>
+        <li>Docker Swarm <code>init</code> makes current node the manager</li>
+        <li>Minikube: <code>eval $(minikube docker-env)</code> before building image for K8s</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Cloud Computing · 25B12CA324 · Dr. Kashav Ajmera & Mr. Sumeshwar Singh · End Semester 2025–26 · 35 Marks
+</footer>
+
+<script>
+// Active nav highlighting on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a[href^="#"]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+
+<!-- ═══════════════════ CHEATSHEET CSS ═══════════════════ -->
+<style>
+.cs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(440px,1fr)); gap:1.25rem; margin:0; }
+.cs-block { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.cs-block-header { padding:.85rem 1.25rem; font-size:14px; font-weight:700; }
+.cs-block-header.blue   { background:rgba(99,130,255,0.12); color:#6382ff; border-bottom:1px solid rgba(99,130,255,0.2); }
+.cs-block-header.green  { background:rgba(0,212,170,0.12);  color:#00d4aa; border-bottom:1px solid rgba(0,212,170,0.2); }
+.cs-block-header.yellow { background:rgba(255,209,102,0.12);color:#ffd166; border-bottom:1px solid rgba(255,209,102,0.2); }
+.cs-block-header.red    { background:rgba(255,107,107,0.12);color:#ff6b6b; border-bottom:1px solid rgba(255,107,107,0.2); }
+.cs-block-header.purple { background:rgba(167,130,255,0.12);color:#a782ff; border-bottom:1px solid rgba(167,130,255,0.2); }
+.cs-body { padding:1rem 1.25rem 1.25rem; }
+.cs-p { color:var(--text2); font-size:13px; line-height:1.6; margin-bottom:.75rem; }
+.cs-sub { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:1rem 0 .5rem; padding-bottom:4px; border-bottom:1px solid var(--border); }
+.cs-analogy { background:rgba(255,209,102,.07); border:1px solid rgba(255,209,102,.18); border-left:3px solid var(--accent4); border-radius:0 6px 6px 0; padding:.6rem 1rem; font-size:12.5px; color:var(--text2); margin:.6rem 0; }
+.cs-danger  { background:rgba(255,107,107,.07); border:1px solid rgba(255,107,107,.18); border-left:3px solid var(--accent3); border-radius:0 6px 6px 0; padding:.6rem 1rem; font-size:12.5px; color:var(--text2); margin:.6rem 0; }
+.cs-tag-row { display:flex; flex-wrap:wrap; gap:6px; margin:.5rem 0; }
+.cs-tag { display:flex; flex-direction:column; background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:6px 10px; font-size:11px; min-width:110px; flex:1; }
+.cs-tag strong { font-size:12px; margin-bottom:2px; }
+.cs-tag span { color:var(--text3); font-size:10.5px; font-family:var(--mono); }
+.cs-tag.blue strong { color:#6382ff; } .cs-tag.green strong { color:#00d4aa; }
+.cs-tag.yellow strong { color:#ffd166; } .cs-tag.red strong { color:#ff6b6b; }
+.cs-tag.purple strong { color:#a782ff; }
+.cs-mini-table { border-radius:8px; overflow:hidden; border:1px solid var(--border); margin:.5rem 0; font-size:12px; }
+.cs-mrow { display:grid; grid-template-columns:1fr 1.8fr; border-bottom:1px solid var(--border); }
+.cs-mrow.col3 { grid-template-columns:1fr 1.5fr 1fr; }
+.cs-mrow.col4 { grid-template-columns:1fr 1fr 1.2fr 1fr; }
+.cs-mrow:last-child { border-bottom:none; }
+.cs-mrow > * { padding:7px 10px; }
+.cs-mrow.header > * { background:var(--bg3); color:var(--accent); font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; }
+.cs-mrow:not(.header):hover { background:rgba(99,130,255,.04); }
+.cs-mrow:not(.header) > *:first-child { color:var(--text); }
+.cs-mrow:not(.header) > *:not(:first-child) { color:var(--text2); }
+.cs-code-block { background:#0d1117; border:1px solid var(--border); border-radius:8px; padding:.9rem 1rem; font-family:var(--mono); font-size:11.5px; line-height:1.75; color:#00d4aa; margin:.5rem 0; white-space:pre; overflow-x:auto; }
+.cs-code-mini { font-family:var(--mono); font-size:11px; color:var(--text3); margin-top:4px; }
+.cs-compare { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:.5rem 0; }
+.cs-compare-side { background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:.75rem 1rem; }
+.cs-compare-side p { font-size:12px; color:var(--text2); margin-top:6px; }
+.cs-compare-head { font-size:12px; font-weight:600; }
+.cs-compare-side.blue .cs-compare-head { color:#6382ff; } .cs-compare-side.green .cs-compare-head { color:#00d4aa; }
+.cs-compare-side.red .cs-compare-head  { color:#ff6b6b; } .cs-compare-side.yellow .cs-compare-head{ color:#ffd166; }
+.cs-diagram-mini { background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:.75rem; margin:.5rem 0; }
+.cs-flow { display:flex; align-items:center; flex-wrap:wrap; gap:6px; justify-content:center; }
+.cs-fbox { background:var(--card); border:1px solid var(--border2); border-radius:6px; padding:5px 9px; font-size:11px; font-weight:600; text-align:center; line-height:1.4; }
+.cs-fbox.blue { color:#6382ff; border-color:rgba(99,130,255,.4); }
+.cs-fbox.green { color:#00d4aa; border-color:rgba(0,212,170,.4); }
+.cs-fbox.yellow { color:#ffd166; border-color:rgba(255,209,102,.4); }
+.cs-fbox.purple { color:#a782ff; border-color:rgba(167,130,255,.4); }
+.cs-fbox.red { color:#ff6b6b; border-color:rgba(255,107,107,.4); }
+.cs-farrow { color:var(--text3); font-size:16px; }
+.cs-list { list-style:none; padding:0; margin:.4rem 0; }
+.cs-list li { padding:3px 0 3px 16px; position:relative; color:var(--text2); font-size:12.5px; line-height:1.5; }
+.cs-list li::before { content:"▸"; position:absolute; left:0; color:var(--accent); font-size:9px; top:6px; }
+.cs-steps { display:flex; flex-direction:column; gap:5px; margin:.5rem 0; }
+.cs-step { display:flex; gap:10px; align-items:flex-start; }
+.cs-step span { min-width:20px; height:20px; border-radius:50%; background:var(--accent); color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.cs-step p { margin:0; color:var(--text2); font-size:12.5px; }
+.cs-step p strong { color:var(--text); }
+
+/* COMMANDS CHEATSHEET */
+.cmd-cs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(480px,1fr)); gap:1.25rem; }
+.cmd-cs-block { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.cmd-cs-header { padding:.85rem 1.25rem; font-size:14px; font-weight:700; border-bottom:1px solid var(--border); color:var(--text); }
+.cmd-group-label { padding:7px 14px 4px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); background:rgba(99,130,255,.04); border-top:1px solid var(--border); }
+.cmd-cs-row { display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--border); }
+.cmd-cs-row:hover { background:rgba(99,130,255,.04); }
+.cmd-cs-row:last-child { border-bottom:none; }
+.cmd-cs-code { font-family:var(--mono); font-size:10.5px; color:#00d4aa; background:#0d1117; padding:7px 11px; border-right:1px solid var(--border); word-break:break-all; white-space:pre-wrap; line-height:1.55; }
+.cmd-cs-desc { font-size:11.5px; color:var(--text2); padding:7px 11px; line-height:1.5; }
+
+@media(max-width:768px){
+  .cs-grid,.cmd-cs-grid { grid-template-columns:1fr; }
+  .cs-compare { grid-template-columns:1fr; }
+  .cmd-cs-row { grid-template-columns:1fr; }
+  .cmd-cs-code { border-right:none; border-bottom:1px solid var(--border); }
+}
+</style>
+
+<!-- ══════════════ THEORY CHEATSHEET ══════════════ -->
+<section id="cheatsheet">
+  <div class="section-label"><div class="section-num green">✦</div><h2 class="section-title">Theory Cheatsheet — Hinglish Mein Samjho</h2></div>
+  <p style="color:var(--text2);margin-bottom:1.5rem;">Saare important concepts ek jagah. Simple Hinglish mein — jaise dost explain kare. Diagrams + examples sab hai. Exam se pehle ek baar zaroor padho.</p>
+  <div class="cs-grid">
+
+    <!-- CLOUD FUNDAMENTALS -->
+    <div class="cs-block">
+      <div class="cs-block-header blue">☁ Cloud Computing Kya Hai?</div>
+      <div class="cs-body">
+        <p class="cs-p">Cloud computing matlab apna software, storage, database — sab kuch <strong>internet ke through</strong> use karna. Apne computer pe install karne ki zaroorat nahi, AWS/Google ka server use karo, pay karo sirf jitna use kiya.</p>
+        <div class="cs-analogy">💡 <strong>Example:</strong> Ghar mein AC khareedno ya hotel mein rahen? Cloud = hotel mein rehna — pay per use, koi maintenance nahi.</div>
+        <div class="cs-sub">NIST ke 5 Characteristics — "OBRE-M"</div>
+        <div class="cs-tag-row">
+          <div class="cs-tag blue"><strong>On-Demand</strong><span>Khud provision karo, kisi se maango nahi</span></div>
+          <div class="cs-tag green"><strong>Broad Network</strong><span>Kisi bhi device se access — phone, laptop</span></div>
+          <div class="cs-tag yellow"><strong>Resource Pooling</strong><span>Ek server pe kai users — multi-tenant</span></div>
+          <div class="cs-tag red"><strong>Rapid Elasticity</strong><span>Traffic badha? Scale up. Gaya? Scale down.</span></div>
+          <div class="cs-tag purple"><strong>Measured Service</strong><span>Pay only for what you use — meter lagta hai</span></div>
+        </div>
+        <div class="cs-sub">IaaS / PaaS / SaaS — Pizza Analogy</div>
+        <div class="cs-mini-table">
+          <div class="cs-mrow col3 header"><span>Model</span><span>Tu manage karta hai</span><span>Example</span></div>
+          <div class="cs-mrow col3"><span><strong>IaaS</strong></span><span>OS + apps + data — sirf hardware provider ka</span><span>AWS EC2</span></div>
+          <div class="cs-mrow col3"><span><strong>PaaS</strong></span><span>Sirf code likho — baaki sab provider</span><span>Heroku</span></div>
+          <div class="cs-mrow col3"><span><strong>SaaS</strong></span><span>Kuch nahi — bas app use karo</span><span>Gmail, Zoom</span></div>
+        </div>
+        <div class="cs-analogy">💡 IaaS = aata khareed ke ghar bana. PaaS = dough mila tu topping lagao. SaaS = pizza order karo khao.</div>
+        <div class="cs-sub">VM Types — Kaun Kab?</div>
+        <div class="cs-mini-table">
+          <div class="cs-mrow header"><span>Type</span><span>Hinglish mein + Use Case</span></div>
+          <div class="cs-mrow"><span><strong>Bare Metal</strong></span><span>Seedha hardware — koi OS nahi beech mein. HPC ke liye.</span></div>
+          <div class="cs-mrow"><span><strong>Virtual Server</strong></span><span>Sharing wala — kai log ek server pe. Sabse common.</span></div>
+          <div class="cs-mrow"><span><strong>Dedicated Host</strong></span><span>Poora server sirf tera — compliance ke liye.</span></div>
+          <div class="cs-mrow"><span><strong>Reserved Instance ⭐</strong></span><span>Advance booking — sasta + guaranteed. Long-term kaam ke liye. (T1 Q2)</span></div>
+          <div class="cs-mrow"><span><strong>Transient/Spot</strong></span><span>Sabse sasta — kabhi bhi band ho sakta. Short fault-tolerant tasks only.</span></div>
+        </div>
+        <div class="cs-sub">Type 1 vs Type 2 Hypervisor</div>
+        <div class="cs-compare">
+          <div class="cs-compare-side blue"><div class="cs-compare-head">Type 1 — Bare Metal</div><p>Seedha hardware pe — koi host OS nahi. Faster, secure. Enterprise data center. VMware ESXi, Hyper-V, Xen</p></div>
+          <div class="cs-compare-side green"><div class="cs-compare-head">Type 2 — Hosted</div><p>Normal OS ke upar hypervisor. Easy install. Developer laptop. VirtualBox, VMware Workstation</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MICROSERVICES -->
+    <div class="cs-block">
+      <div class="cs-block-header green">🔧 Microservices vs Monolithic</div>
+      <div class="cs-body">
+        <div class="cs-analogy">💡 Monolithic = ek bada dabba jisme sab kuch packed. Microservices = tiffin box style — alag alag compartment. Ek toot gaya toh baaki safe.</div>
+        <div class="cs-sub">Monolithic Ki Problems</div>
+        <ul class="cs-list">
+          <li>Cart pe load aaya — Payment bhi slow ho jaata hai</li>
+          <li>Ek feature update = poora app redeploy</li>
+          <li>Scale karna padega toh poora app scale hoga</li>
+          <li>Ek bug = sabka kaam band</li>
+        </ul>
+        <div class="cs-sub">Microservices Ke Fayde</div>
+        <ul class="cs-list">
+          <li><strong>Independent deployment:</strong> Sirf payment update karo — cart ko haath mat lagao</li>
+          <li><strong>Independent scaling:</strong> Festival sale mein sirf Cart scale karo ⭐ T1 Q4</li>
+          <li><strong>Fault isolation:</strong> Payment crash ho — Cart aur Order chal rahe hain</li>
+          <li><strong>Different tech stack:</strong> Cart=Node.js, Payment=Java — koi issue nahi</li>
+          <li><strong>Stateless:</strong> Server pe session nahi — DB mein store karo</li>
+        </ul>
+        <div class="cs-sub">API Gateway — Darbaan Wala</div>
+        <p class="cs-p">Sab requests pehle Gateway pe aate hain. Woh decide karta hai — kahan bhejun. Authentication, rate limiting sab yahan.</p>
+        <div class="cs-diagram-mini">
+          <div class="cs-flow">
+            <div class="cs-fbox blue">Client App</div>
+            <div class="cs-farrow">→</div>
+            <div class="cs-fbox green">API Gateway :3000</div>
+            <div class="cs-farrow">→</div>
+            <div class="cs-fbox yellow">/products→:3001<br>/orders→:3002</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JSON -->
+    <div class="cs-block">
+      <div class="cs-block-header yellow">{ } JSON &amp; JSON Schema</div>
+      <div class="cs-body">
+        <p class="cs-p">JSON = JavaScript Object Notation. Data store/exchange karne ka format. Lightweight, language-independent. Server se webpage pe data bhejne ke liye.</p>
+        <div class="cs-sub">6 Data Types</div>
+        <div class="cs-tag-row">
+          <div class="cs-tag blue"><strong>String</strong><span>"name":"Amit"</span></div>
+          <div class="cs-tag green"><strong>Number</strong><span>"age":20</span></div>
+          <div class="cs-tag yellow"><strong>Boolean</strong><span>"ok":true</span></div>
+          <div class="cs-tag red"><strong>Null</strong><span>"x":null</span></div>
+          <div class="cs-tag purple"><strong>Object</strong><span>"a":{"city":"Delhi"}</span></div>
+          <div class="cs-tag blue"><strong>Array</strong><span>"m":[85,90]</span></div>
+        </div>
+        <div class="cs-sub">4 Syntax Rules</div>
+        <ul class="cs-list">
+          <li>Name/value pairs: <code>"key":"value"</code></li>
+          <li>Items comma se alag</li>
+          <li>Curly braces <code>{ }</code> = objects</li>
+          <li>Square brackets <code>[ ]</code> = arrays</li>
+        </ul>
+        <div class="cs-sub">parse() aur stringify()</div>
+        <div class="cs-code-block">JSON.parse(text)       // String → JS Object
+JSON.stringify(obj)    // JS Object → String</div>
+        <div class="cs-sub">JSON Schema — Blueprint ⭐ T2 Q2</div>
+        <div class="cs-code-block">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["name","age","email"],
+  "properties": {
+    "name":   { "type":"string", "minLength":3 },
+    "age":    { "type":"integer", "minimum":17, "maximum":30 },
+    "email":  { "type":"string", "format":"email" },
+    "course": { "type":"string", "enum":["CS","IT","DS"] }
+  }
+}</div>
+        <div class="cs-analogy">💡 Schema = Aadhar form ka structure. Sab ko usi format mein bharna padega.</div>
+      </div>
+    </div>
+
+    <!-- REST API -->
+    <div class="cs-block">
+      <div class="cs-block-header purple">🌐 REST API</div>
+      <div class="cs-body">
+        <p class="cs-p">REST = Representational State Transfer. HTTP use karta hai. Stateless — har request mein saari info, server pe kuch store nahi.</p>
+        <div class="cs-analogy">💡 Client = Customer. API = Waiter. Server = Kitchen. GET = "Menu dikhao". POST = "Ye order karo".</div>
+        <div class="cs-sub">HTTP Methods — CRUD Mapping</div>
+        <div class="cs-mini-table">
+          <div class="cs-mrow col3 header"><span>Method</span><span>CRUD</span><span>Kab use karein</span></div>
+          <div class="cs-mrow col3"><span><code>GET</code></span><span>Read</span><span>Data fetch karna hai</span></div>
+          <div class="cs-mrow col3"><span><code>POST</code></span><span>Create</span><span>Nayi cheez banana hai</span></div>
+          <div class="cs-mrow col3"><span><code>PUT</code></span><span>Update (full)</span><span>Poora record replace karo</span></div>
+          <div class="cs-mrow col3"><span><code>PATCH</code></span><span>Update (part)</span><span>Sirf kuch fields update karo</span></div>
+          <div class="cs-mrow col3"><span><code>DELETE</code></span><span>Delete</span><span>Record hatana hai</span></div>
+        </div>
+        <div class="cs-sub">Status Codes</div>
+        <div class="cs-tag-row">
+          <div class="cs-tag green"><strong>200 OK</strong><span>Sab theek</span></div>
+          <div class="cs-tag blue"><strong>201 Created</strong><span>Naya bana</span></div>
+          <div class="cs-tag blue"><strong>204 No Content</strong><span>Success, kuch return nahi</span></div>
+          <div class="cs-tag red"><strong>404 Not Found</strong><span>Mila nahi</span></div>
+          <div class="cs-tag red"><strong>400 Bad Request</strong><span>Client ki galti</span></div>
+          <div class="cs-tag red"><strong>500 Server Error</strong><span>Server ki galti</span></div>
+        </div>
+        <div class="cs-sub">5 REST Constraints</div>
+        <ul class="cs-list">
+          <li><strong>Stateless:</strong> Server pe session nahi — har request self-contained</li>
+          <li><strong>Client-Server:</strong> UI aur data alag — separation of concerns</li>
+          <li><strong>Uniform Interface:</strong> Consistent endpoints</li>
+          <li><strong>Cacheable:</strong> Response cache ho sakti hai</li>
+          <li><strong>Layered System:</strong> Client ko pata nahi woh directly server se baat kar raha hai ya nahi</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- NODEJS -->
+    <div class="cs-block">
+      <div class="cs-block-header green">⚡ Node.js + Express CRUD Template ⭐</div>
+      <div class="cs-body">
+        <p class="cs-p">Node.js = JavaScript server pe. Asynchronous non-blocking. Express = REST API banane ka framework. T2 Q1 aur Make-up Q2 — ye pattern yaad karo.</p>
+        <div class="cs-analogy">💡 PHP = ek cashier jo ek ke baad ek. Node.js = ek cashier jo order deke agla leta — sab parallel.</div>
+        <div class="cs-code-block">const express = require('express');
+const app = express();
+app.use(express.json());    // JSON body parse karo
+let items = []; let id = 1;
+
+// GET - sab do
+app.get('/items', (req,res) => res.json(items));
+// POST - banao
+app.post('/items', (req,res) => {
+  const item = { id: id++, ...req.body };
+  items.push(item); res.json(item);
+});
+// PUT - update karo
+app.put('/items/:id', (req,res) => {
+  const i = items.find(x => x.id == req.params.id);
+  if(i){ Object.assign(i, req.body); res.json(i); }
+  else res.status(404).send('Not found');
+});
+// DELETE - hatao
+app.delete('/items/:id', (req,res) => {
+  items = items.filter(x => x.id != req.params.id);
+  res.send('Deleted');
+});
+app.listen(3000);</div>
+        <div class="cs-sub">API Gateway — Proxy ⭐ T2 Q1</div>
+        <div class="cs-code-block">const {createProxyMiddleware} = require('http-proxy-middleware');
+app.use('/products', createProxyMiddleware({
+  target:'http://localhost:3001', changeOrigin:true }));
+app.use('/orders', createProxyMiddleware({
+  target:'http://localhost:3002', changeOrigin:true }));
+app.listen(3000);</div>
+      </div>
+    </div>
+
+    <!-- MONGODB -->
+    <div class="cs-block">
+      <div class="cs-block-header yellow">🍃 MongoDB</div>
+      <div class="cs-body">
+        <p class="cs-p">MongoDB = NoSQL document database. BSON format (JSON jaisa). Table nahi → Collections. Row nahi → Documents. Schema flexible.</p>
+        <div class="cs-analogy">💡 MySQL = Excel sheet (fixed rows/cols). MongoDB = WhatsApp messages (har message alag format).</div>
+        <div class="cs-sub">CRUD Commands ⭐ T2 Q3</div>
+        <div class="cs-code-block">use university   // Database switch karo
+
+// INSERT
+db.students.insertOne({ name:'Amit', age:20 })
+db.students.insertMany([{...},{...}])
+
+// READ
+db.students.find()                      // sab
+db.students.find({ course:'CS' })       // filter
+db.students.findOne({ name:'Amit' })    // ek
+
+// UPDATE — $set MANDATORY ⭐ 2 MARKS
+db.students.updateOne(
+  { name:'Amit' },
+  { $set: { marks:90 } }   // $set ke bina = 0 marks!
+)
+db.students.updateMany(
+  { course:'IT' }, { $set: { dept:'IT' } })
+
+// DELETE
+db.students.deleteOne({ name:'Amit' })
+db.students.deleteMany({ dept:'HR' })</div>
+        <div class="cs-danger">🚨 updateOne mein $set ZAROOR likhna. { marks:90 } likhoge toh document overwrite hoga — wrong answer aur 0 marks!</div>
+        <div class="cs-sub">Update Operators</div>
+        <div class="cs-tag-row">
+          <div class="cs-tag blue"><strong>$set</strong><span>Field set karo</span></div>
+          <div class="cs-tag green"><strong>$inc</strong><span>Increment karo</span></div>
+          <div class="cs-tag yellow"><strong>$unset</strong><span>Field hatao</span></div>
+          <div class="cs-tag red"><strong>$rename</strong><span>Field rename karo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCKER -->
+    <div class="cs-block">
+      <div class="cs-block-header red">🐳 Docker — PPT 9 ★★★</div>
+      <div class="cs-body">
+        <p class="cs-p">Docker = application ko container mein pack karna. "Mere machine pe chal raha tha" problem solve karta hai. Container = app + uski saari dependencies ek saath.</p>
+        <div class="cs-analogy">💡 Shipping container analogy: Jaise goods safely travel karte hain — ship, truck, kahan bhi — waise Docker container kisi bhi machine pe same chalega.</div>
+        <div class="cs-sub">Key Concepts</div>
+        <div class="cs-mini-table">
+          <div class="cs-mrow header"><span>Term</span><span>Hinglish mein</span></div>
+          <div class="cs-mrow"><span><strong>Image</strong></span><span>Read-only blueprint — Dockerfile se banta hai. Class ki tarah.</span></div>
+          <div class="cs-mrow"><span><strong>Container</strong></span><span>Image ka running instance — actual app chal raha hai. Object ki tarah.</span></div>
+          <div class="cs-mrow"><span><strong>Dockerfile</strong></span><span>"Kaise banao image" wala recipe card — instructions ki list.</span></div>
+          <div class="cs-mrow"><span><strong>Docker Hub</strong></span><span>Public registry — jahan se images download karo (docker pull).</span></div>
+          <div class="cs-mrow"><span><strong>Docker Daemon</strong></span><span>Background service (dockerd) — images aur containers manage karta hai.</span></div>
+        </div>
+        <div class="cs-sub">Dockerfile Instructions ⭐</div>
+        <div class="cs-code-block">FROM node:18          # Base image — kaunsa runtime
+WORKDIR /app          # Container ke andar working dir
+COPY package*.json ./ # Dependencies copy karo (caching)
+RUN npm install       # BUILD time pe run — packages install
+COPY . .              # Baaki sab code copy karo
+EXPOSE 3000           # Port expose karo (documentation)
+CMD ["node","index.js"] # Container start pe ye chalega</div>
+        <div class="cs-sub">Docker Architecture</div>
+        <div class="cs-diagram-mini">
+          <div class="cs-flow">
+            <div class="cs-fbox blue">Docker Client<br><small>CLI commands</small></div>
+            <div class="cs-farrow">→REST→</div>
+            <div class="cs-fbox green">Docker Daemon<br><small>manages images & containers</small></div>
+            <div class="cs-farrow">↔push/pull↔</div>
+            <div class="cs-fbox yellow">Registry<br><small>hub.docker.com</small></div>
+          </div>
+        </div>
+        <div class="cs-sub">Networks — 4 Types</div>
+        <ul class="cs-list">
+          <li><strong>Bridge (Default):</strong> Same host ke containers ek dusre se baat kar sakte hain</li>
+          <li><strong>Host:</strong> Container seedha host ka network use karta — apna IP nahi</li>
+          <li><strong>Overlay:</strong> Multiple Docker hosts ke beech — Swarm use karta hai</li>
+          <li><strong>None:</strong> Bilkul no networking — completely isolated</li>
+        </ul>
+        <div class="cs-sub">VM vs Container ⭐</div>
+        <div class="cs-compare">
+          <div class="cs-compare-side red"><div class="cs-compare-head">Virtual Machine</div><p>Poora OS saath — GBs. Boot mein minutes. Heavy. Full OS isolation.</p></div>
+          <div class="cs-compare-side blue"><div class="cs-compare-head">Container</div><p>Sirf app + deps — MBs. Seconds mein start. Lightweight. Shared kernel.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCKER SWARM -->
+    <div class="cs-block">
+      <div class="cs-block-header purple">🐝 Docker Swarm — PPT 10 ★★★</div>
+      <div class="cs-body">
+        <p class="cs-p">Docker Swarm = kai Docker machines ko ek cluster mein manage karna. Orchestration tool — deployment, scaling, load balancing sab automatic.</p>
+        <div class="cs-analogy">💡 Army analogy: Manager = General. Workers = Soldiers. Service = Mission. Task = Ek soldier ka kaam. General decide karta hai kaun kya karega.</div>
+        <div class="cs-sub">Components</div>
+        <div class="cs-mini-table">
+          <div class="cs-mrow header"><span>Component</span><span>Kya hota hai</span></div>
+          <div class="cs-mrow"><span><strong>Swarm</strong></span><span>Multiple Docker hosts ka cluster — ek unit ki tarah</span></div>
+          <div class="cs-mrow"><span><strong>Manager Node</strong></span><span>Cluster control karta hai — tasks workers ko assign karta hai</span></div>
+          <div class="cs-mrow"><span><strong>Worker Node</strong></span><span>Manager ka kaam execute karta — containers chalata hai</span></div>
+          <div class="cs-mrow"><span><strong>Service</strong></span><span>Kya chalana hai — image, replicas, ports define karo</span></div>
+          <div class="cs-mrow"><span><strong>Task</strong></span><span>Ek running container — assign hone ke baad move nahi hota</span></div>
+          <div class="cs-mrow"><span><strong>Replica</strong></span><span>Service ki ek copy — scale = kitni copies</span></div>
+        </div>
+        <div class="cs-sub">Self-Healing ⭐ — Swarm Ki Superpower</div>
+        <div class="cs-diagram-mini">
+          <div class="cs-flow">
+            <div class="cs-fbox red">Container crash 💀</div>
+            <div class="cs-farrow">→</div>
+            <div class="cs-fbox blue">Manager detect karta</div>
+            <div class="cs-farrow">→</div>
+            <div class="cs-fbox green">Nayi task auto-create ✓</div>
+          </div>
+        </div>
+        <div class="cs-sub">Replicated vs Global</div>
+        <div class="cs-compare">
+          <div class="cs-compare-side blue"><div class="cs-compare-head">Replicated (Default)</div><p>Fixed N replicas — e.g., 3 copies. Swarm decide karta kahan chalao.</p></div>
+          <div class="cs-compare-side green"><div class="cs-compare-head">Global</div><p>Har node pe ek replica. Monitoring agent ke liye — nayi node aai toh wahan bhi chalega.</p></div>
+        </div>
+        <div class="cs-sub">Orchestration Ke 6 Fayde</div>
+        <div class="cs-tag-row">
+          <div class="cs-tag blue"><strong>Automation</strong><span>Manual kaam khatam</span></div>
+          <div class="cs-tag green"><strong>Scalability</strong><span>Load ke hisaab se auto</span></div>
+          <div class="cs-tag yellow"><strong>High Availability</strong><span>Ek node down — service chale</span></div>
+          <div class="cs-tag red"><strong>Self-Healing</strong><span>Crash → auto restart</span></div>
+          <div class="cs-tag purple"><strong>Load Balancing</strong><span>Traffic equally distribute</span></div>
+          <div class="cs-tag blue"><strong>Resource Opt.</strong><span>Sahi nodes pe containers</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AWS ECS -->
+    <div class="cs-block">
+      <div class="cs-block-header yellow">☁ AWS ECS — PPT 11 ★★★</div>
+      <div class="cs-body">
+        <p class="cs-p">AWS ECS = Amazon ka container orchestration service. Docker containers ko AWS pe manage karta hai — EC2 ya Fargate (serverless) pe.</p>
+        <div class="cs-analogy">💡 Restaurant chain: ECR=Recipe book. Task Definition=Ek dish ki recipe. Task=Chef dish bana raha hai. Service=Manager jo ensure kare 2 chefs hamesha kaam karein. Cluster=Poori chain.</div>
+        <div class="cs-sub">ECS Hierarchy ⭐ Yaad Karo</div>
+        <div class="cs-diagram-mini">
+          <div class="cs-flow">
+            <div class="cs-fbox yellow">ECR<br><small>Image</small></div>
+            <div class="cs-farrow">→</div>
+            <div class="cs-fbox blue">Task Def<br><small>Blueprint</small></div>
+            <div class="cs-farrow">→</div>
+            <div class="cs-fbox green">Task<br><small>Running</small></div>
+            <div class="cs-farrow">→</div>
+            <div class="cs-fbox purple">Service<br><small>Manages</small></div>
+            <div class="cs-farrow">→</div>
+            <div class="cs-fbox red">Cluster<br><small>Hosts</small></div>
+          </div>
+        </div>
+        <div class="cs-mini-table">
+          <div class="cs-mrow header"><span>Component</span><span>Kya karta hai</span></div>
+          <div class="cs-mrow"><span><strong>ECR</strong></span><span>AWS ka private Docker registry — images yahan push karo pehle</span></div>
+          <div class="cs-mrow"><span><strong>Cluster</strong></span><span>Logical grouping — ek cluster mein kai services (auth, db, api)</span></div>
+          <div class="cs-mrow"><span><strong>Task Definition</strong></span><span>Blueprint — image URI, CPU/memory, ports, env vars</span></div>
+          <div class="cs-mrow"><span><strong>Task</strong></span><span>Running instance of task definition — Service manage karta hai</span></div>
+          <div class="cs-mrow"><span><strong>Service</strong></span><span>Desired count maintain karo — crash pe nayi task banao</span></div>
+        </div>
+        <div class="cs-sub">EC2 vs Fargate</div>
+        <div class="cs-compare">
+          <div class="cs-compare-side blue"><div class="cs-compare-head">EC2 Launch Type</div><p>Tu EC2 manage karega — OS patching, capacity tera kaam. Zyada control.</p></div>
+          <div class="cs-compare-side green"><div class="cs-compare-head">Fargate (Serverless) ⭐</div><p>AWS sab manage karta. Tu sirf task define kar. CPU/memory pay karo. No EC2.</p></div>
+        </div>
+        <div class="cs-sub">Deployment Steps</div>
+        <div class="cs-steps">
+          <div class="cs-step"><span>1</span><p><strong>Image banao:</strong> docker build -t myapp .</p></div>
+          <div class="cs-step"><span>2</span><p><strong>ECR pe push karo:</strong> tag + docker push</p></div>
+          <div class="cs-step"><span>3</span><p><strong>Cluster create karo</strong> AWS Console mein</p></div>
+          <div class="cs-step"><span>4</span><p><strong>Task Definition banao</strong> — ECR image reference karo</p></div>
+          <div class="cs-step"><span>5</span><p><strong>Service create karo</strong> — count + load balancer</p></div>
+          <div class="cs-step"><span>6</span><p><strong>Auto Scaling configure:</strong> CPU &gt; 70% pe scale out</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KUBERNETES -->
+    <div class="cs-block">
+      <div class="cs-block-header blue">⚙ Kubernetes (K8s) — PPT 12 ★★★</div>
+      <div class="cs-body">
+        <p class="cs-p">Google ka container orchestration tool. Open source, CNCF ko donate kiya. "K8s" — K aur s ke beech 8 letters. Go language mein likha gaya.</p>
+        <div class="cs-analogy">💡 Smart city: Master = Mayor's office. Worker nodes = Mohalle. Pods = Ghar. Kubelet = Municipal officer. etcd = City records dept.</div>
+        <div class="cs-sub">Master Node — "ASCE" Yaad Karo</div>
+        <div class="cs-mini-table">
+          <div class="cs-mrow header"><span>Component</span><span>Kya karta hai</span></div>
+          <div class="cs-mrow"><span><strong>API Server</strong></span><span>Saare REST commands ka entry point. kubectl yahan baat karta. API objects validate karta.</span></div>
+          <div class="cs-mrow"><span><strong>Scheduler</strong></span><span>Pods ko worker nodes pe assign karta. Resources dekh ke decide karta kahan bhejun.</span></div>
+          <div class="cs-mrow"><span><strong>Controller Mgr</strong></span><span>Non-terminating loop. Ensure karta: current state = desired state.</span></div>
+          <div class="cs-mrow"><span><strong>etcd</strong></span><span>Distributed key-value DB. Cluster ki poori info yahan. Kubernetes ka "brain memory". Go mein likha.</span></div>
+        </div>
+        <div class="cs-sub">Worker Node Components</div>
+        <div class="cs-mini-table">
+          <div class="cs-mrow header"><span>Component</span><span>Kya karta hai</span></div>
+          <div class="cs-mrow"><span><strong>Kubelet</strong></span><span>Primary agent — master se baat karta. Pod specs execute karta. Container healthy hai check karta.</span></div>
+          <div class="cs-mrow"><span><strong>Kube-proxy</strong></span><span>Networking ka kaam. TCP/UDP route karta. Services expose karta bahar.</span></div>
+          <div class="cs-mrow"><span><strong>Pods</strong></span><span>Sabse chhoti unit. Ephemeral — crash pe NEW IP ke saath nayi pod banti. Services ke liye stable IP.</span></div>
+          <div class="cs-mrow"><span><strong>Docker</strong></span><span>Actual containers run karta worker node pe.</span></div>
+        </div>
+        <div class="cs-danger">🚨 Pod crash = Naya pod NEW IP ke saath. Isliye Kubernetes Service use karo — stable endpoint deta hai regardless of pods.</div>
+        <div class="cs-sub">K8s vs Docker Swarm</div>
+        <div class="cs-mini-table">
+          <div class="cs-mrow col3 header"><span>Feature</span><span>Docker Swarm</span><span>Kubernetes</span></div>
+          <div class="cs-mrow col3"><span>Setup</span><span>Simple, Docker ka part</span><span>Complex but powerful</span></div>
+          <div class="cs-mrow col3"><span>Scaling</span><span>Manual command</span><span>Auto HPA</span></div>
+          <div class="cs-mrow col3"><span>Industry</span><span>Chhote projects</span><span>★ Industry standard</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MINIKUBE -->
+    <div class="cs-block">
+      <div class="cs-block-header green">🖥 Minikube — PPT 13 ★★★</div>
+      <div class="cs-body">
+        <p class="cs-p">Minikube = apne laptop pe Kubernetes chalao. Full cloud cluster ki zaroorat nahi. Learning, development, testing ke liye perfect.</p>
+        <div class="cs-analogy">💡 Driving school ka practice track. Real roads (production K8s) pe jaane se pehle yahan practice karo.</div>
+        <div class="cs-sub">Full Node.js Deploy on K8s — 5 Steps ⭐ PPT 13</div>
+        <div class="cs-steps">
+          <div class="cs-step"><span>1</span><p><strong>App banao:</strong> index.js — port 3000 pe serve kare</p></div>
+          <div class="cs-step"><span>2</span><p><strong>Dockerfile banao:</strong> FROM node:18 → WORKDIR → COPY → RUN npm install → EXPOSE 3000 → CMD</p></div>
+          <div class="cs-step"><span>3</span><p><strong>deployment.yaml:</strong> replicas:2, image:my-k8s-app, containerPort:3000</p></div>
+          <div class="cs-step"><span>4</span><p><strong>service.yaml:</strong> type:NodePort, port:80, targetPort:3000</p></div>
+          <div class="cs-step"><span>5</span><p><strong>Deploy:</strong> minikube start → eval $(minikube docker-env) → docker build → kubectl apply → minikube service --url</p></div>
+        </div>
+        <div class="cs-sub">Profiles — Multiple Clusters</div>
+        <p class="cs-p">Profile = Alag Minikube instance. Testing ke liye alag alag configurations ke saath alag clusters.</p>
+        <div class="cs-code-block">minikube profile list               // sab profiles dekho
+minikube profile dev                // dev profile switch karo
+minikube start --profile staging    // nayi profile banao</div>
+        <div class="cs-sub">Multi-Node Cluster</div>
+        <div class="cs-code-block">minikube start --nodes 3 --driver=docker
+kubectl get nodes   // verify karo
+minikube node add   // aur node add karo
+minikube node delete node-name  // node hatao</div>
+      </div>
+    </div>
+
+  </div><!-- end cs-grid -->
+</section>
+
+<!-- ══════════════ COMMANDS CHEATSHEET ══════════════ -->
+<section id="cmdsheet">
+  <div class="section-label"><div class="section-num yellow">⌨</div><h2 class="section-title">Commands Cheatsheet — PPT Se Direct, Ek Bhi Miss Nahi</h2></div>
+  <p style="color:var(--text2);margin-bottom:1.5rem;">Sab commands directly PPTs se. Hinglish explanation ke saath. Exam se pehle ek baar zaroor dekho.</p>
+  <div class="cmd-cs-grid">
+
+    <!-- DOCKER — PPT 9 -->
+    <div class="cmd-cs-block">
+      <div class="cmd-cs-header" style="background:linear-gradient(135deg,rgba(255,107,107,.12),rgba(255,107,107,.04));border-color:rgba(255,107,107,.25)">🐳 Docker Commands — PPT 9</div>
+      <div class="cmd-group-label">📸 Image Commands</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker --version</div><div class="cmd-cs-desc">Docker ka version check karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker images
+docker image ls</div><div class="cmd-cs-desc">Sabhi images ki list — dono same kaam karte hain</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker images -a</div><div class="cmd-cs-desc">Sab images + intermediate layers bhi dikhao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker images &lt;name&gt;:&lt;tag&gt;</div><div class="cmd-cs-desc">Specific image name aur tag se filter karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker images --no-trunc</div><div class="cmd-cs-desc">Full length image ID dikhao — truncate mat karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker search ubuntu:18.04</div><div class="cmd-cs-desc">Docker Hub pe image search karo specific version ke liye</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker pull ubuntu</div><div class="cmd-cs-desc">Docker Hub se image download karo — latest version aayega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker image rm &lt;imageId&gt;
+docker rmi &lt;imagename&gt;</div><div class="cmd-cs-desc">Image delete karo — dono commands same kaam</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker inspect &lt;imageName&gt;</div><div class="cmd-cs-desc">Image ka metadata — ports, env, layers sab dikhhega</div></div>
+
+      <div class="cmd-group-label">📦 Container Commands</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run &lt;imageName&gt;</div><div class="cmd-cs-desc">Image se container chalao — nahi hai toh pull bhi karega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run --name HPC busybox</div><div class="cmd-cs-desc">Container ko custom naam do — by default random naam milta</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run -it --name firstDocker ubuntu</div><div class="cmd-cs-desc">Interactive TTY mode — container ki command line milegi. -it = interactive tty</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run -d &lt;container-name&gt;</div><div class="cmd-cs-desc">Detached mode — background mein chalao, terminal free rahega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run -i &lt;image&gt;</div><div class="cmd-cs-desc">Interactive mode — stdin open rehta hai</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run -i -t &lt;image&gt;</div><div class="cmd-cs-desc">Interactive + Terminal — full shell milega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run -p 80:19990 mywebserver</div><div class="cmd-cs-desc">Port mapping — host port 80 → container port 19990. Multiple instances alag ports pe.</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run &lt;image&gt;:&lt;tag&gt;</div><div class="cmd-cs-desc">Specific version tag ke saath container chalao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run -v /opt/data/datadir:/var/lib/mysql mysql</div><div class="cmd-cs-desc">Volume mapping — host folder → container folder. Data persist karne ke liye.</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker run --rm -p 8787:8787 rocker/verse</div><div class="cmd-cs-desc">Container chalao — exit hone pe --rm se auto delete</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker container ls
+docker ps</div><div class="cmd-cs-desc">Sirf running containers dikhao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker container ls --all
+docker ps -a</div><div class="cmd-cs-desc">Sabhi containers — stopped wale bhi</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker start &lt;name or id&gt;</div><div class="cmd-cs-desc">Stopped container ko start karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker stop &lt;name or id&gt;</div><div class="cmd-cs-desc">Running container ko gracefully stop karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker exec &lt;imageName&gt; &lt;command&gt;</div><div class="cmd-cs-desc">Running container ke andar command execute karo — e.g., docker exec c1 ls</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker attach &lt;container-id&gt;</div><div class="cmd-cs-desc">Detached container se attach ho jao — terminal wapas lo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker rm &lt;name or id&gt;</div><div class="cmd-cs-desc">Container delete karo — pehle stop karna padega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker container prune</div><div class="cmd-cs-desc">Sab stopped containers ek saath delete karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker inspect &lt;container name&gt;</div><div class="cmd-cs-desc">Container ki detailed info — IP, mounts, network sab</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker logs &lt;container-name&gt;</div><div class="cmd-cs-desc">Container ke logs dekho — debugging ke liye</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker stats</div><div class="cmd-cs-desc">Running containers ka CPU/memory usage real-time dekho</div></div>
+
+      <div class="cmd-group-label">🏗 Build Commands</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker build -t imageTag path</div><div class="cmd-cs-desc">Dockerfile se image banao. -t = tag. path = Dockerfile ka folder.</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker build -t myimage:0.1 .</div><div class="cmd-cs-desc">Current folder mein Dockerfile se myimage:0.1 naam se image banao</div></div>
+
+      <div class="cmd-group-label">🔐 Docker Hub Push/Pull</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker login</div><div class="cmd-cs-desc">Docker Hub mein login karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker login --username=yourhubusername --email=youremail@company.com</div><div class="cmd-cs-desc">Specific credentials se login karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker tag bb38976d03cf yourhubusername/verse_gapminder:firsttry</div><div class="cmd-cs-desc">Image ko Hub location ke saath tag karo — imageId check karo pehle docker images se</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker push yourhubusername/verse_gapminder</div><div class="cmd-cs-desc">Image Docker Hub pe upload karo — repository pehle create karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker pull rocker/verse</div><div class="cmd-cs-desc">Hub se image download karo — run nahi karna bas pull karna</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker save verse_gapminder > verse_gapminder.tar</div><div class="cmd-cs-desc">Image ko tar file mein save karo — offline share ke liye</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker load --input verse_gapminder.tar</div><div class="cmd-cs-desc">Tar file se image wapas load karo</div></div>
+
+      <div class="cmd-group-label">🌐 Network Commands</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker network ls</div><div class="cmd-cs-desc">Sabhi networks ki list — bridge, host, none aur custom</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker network inspect bridge</div><div class="cmd-cs-desc">Bridge network details — kaunse containers connected hain</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker network inspect &lt;networkname&gt;</div><div class="cmd-cs-desc">Kisi bhi network ki detailed info</div></div>
+
+      <div class="cmd-group-label">🚀 Linux Install / System</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">curl -fsSL https://get.docker.com -o get-docker.sh</div><div class="cmd-cs-desc">Docker install script download karo Ubuntu ke liye</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">sudo sh get-docker.sh</div><div class="cmd-cs-desc">Script run karke Docker install karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">sudo systemctl enable docker.service</div><div class="cmd-cs-desc">Boot pe Docker automatically start hoga</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">sudo systemctl enable containerd.service</div><div class="cmd-cs-desc">Boot pe containerd automatically start hoga</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">sudo systemctl disable docker.service</div><div class="cmd-cs-desc">Boot pe auto-start band karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker version</div><div class="cmd-cs-desc">Docker version aur daemon info dekho</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">dockerd</div><div class="cmd-cs-desc">Docker daemon manually start karo</div></div>
+
+      <div class="cmd-group-label">🚢 Docker Compose Commands</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">Docker Compose up</div><div class="cmd-cs-desc">docker-compose.yml se sab services start karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">Docker Compose down</div><div class="cmd-cs-desc">Sab services stop aur remove karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">Docker-compose -v</div><div class="cmd-cs-desc">Docker Compose version check karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">Docker-compose up -d</div><div class="cmd-cs-desc">Detached mode mein sab services background mein chalao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">Docker ps</div><div class="cmd-cs-desc">Sab running containers — Compose wale bhi</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">Docker Compose up -d --scale</div><div class="cmd-cs-desc">Compose se kisi service ko scale karo</div></div>
+    </div>
+
+    <!-- DOCKER SWARM — PPT 10 -->
+    <div class="cmd-cs-block">
+      <div class="cmd-cs-header" style="background:linear-gradient(135deg,rgba(99,130,255,.12),rgba(99,130,255,.04));border-color:rgba(99,130,255,.25)">🐝 Docker Swarm Commands — PPT 10</div>
+      <div class="cmd-group-label">🏁 Swarm Init &amp; Join</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker swarm init</div><div class="cmd-cs-desc">Swarm shuru karo — current machine manager ban jaati. Join token output mein milega.</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker swarm join-token worker</div><div class="cmd-cs-desc">Worker join karne ka command aur token dekho</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker swarm join --token &lt;TOKEN&gt; &lt;MANAGER-IP&gt;:2377</div><div class="cmd-cs-desc">Worker machine pe chalao — swarm mein join hojao. Port 2377 hamesha.</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker swarm leave</div><div class="cmd-cs-desc">Swarm se bahar ho jao — worker pe chalao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker swarm leave --force</div><div class="cmd-cs-desc">Manager ko force leave karna padta hai — seedha nahi chhod sakta</div></div>
+
+      <div class="cmd-group-label">🖥 Node Management</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker node ls</div><div class="cmd-cs-desc">Swarm ke sab nodes ki list — kaun manager, worker, active</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker node inspect --pretty &lt;NODE&gt;</div><div class="cmd-cs-desc">Specific node ki readable detailed info</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker node promote &lt;NODE&gt;</div><div class="cmd-cs-desc">Worker ko Manager bana do</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker node demote &lt;NODE&gt;</div><div class="cmd-cs-desc">Manager ko Worker bana do</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker node update --availability drain &lt;NODE&gt;</div><div class="cmd-cs-desc">Node ko drain karo — nayi tasks nahi aayengi, existing shift hogi</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker node update --availability active &lt;NODE&gt;</div><div class="cmd-cs-desc">Drained node ko wapas active karo</div></div>
+
+      <div class="cmd-group-label">⚙ Service Commands</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service create --name web -p 80:80 nginx</div><div class="cmd-cs-desc">nginx ki service banao "web" naam se port 80 pe</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service create --name &lt;name&gt; --replicas &lt;#&gt; -p &lt;HP:CP&gt; IMAGE</div><div class="cmd-cs-desc">Service create with replicas — HP=host port, CP=container port</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service ls</div><div class="cmd-cs-desc">Swarm ki sabhi services — naam, replicas, image</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service ps &lt;servicename&gt;</div><div class="cmd-cs-desc">Service ki tasks — kaunsi node pe, status kya hai</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker inspect service &lt;servicename&gt;</div><div class="cmd-cs-desc">Service ki complete detailed info JSON mein</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service scale web=5</div><div class="cmd-cs-desc">Service ko 5 replicas pe scale karo — up ya down dono</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service scale web=2</div><div class="cmd-cs-desc">Scale down karo — 2 replicas pe le aao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service rm &lt;servicename&gt;</div><div class="cmd-cs-desc">Service delete karo — sab tasks bhi delete</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service create -p 80:80 --name web --mode global nginx</div><div class="cmd-cs-desc">Global mode — har node pe ek replica automatically. Monitoring ke liye.</div></div>
+
+      <div class="cmd-group-label">🔄 Rolling Updates</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service update --image &lt;IMAGE&gt; &lt;Service&gt;</div><div class="cmd-cs-desc">Service ki image update karo — rolling update, zero downtime</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service update --replicas=5 &lt;Service&gt;</div><div class="cmd-cs-desc">Update command se replicas badha sakte ho</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service update --rollback &lt;Service&gt;</div><div class="cmd-cs-desc">Pichli version pe wapas jao — rollback karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service update --update-failure-action=rollback &lt;service&gt;</div><div class="cmd-cs-desc">Update fail hone pe automatically rollback — safe update</div></div>
+
+      <div class="cmd-group-label">📚 Stack Commands</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker stack deploy --compose-file docker-compose.yml &lt;STACKNAME&gt;</div><div class="cmd-cs-desc">docker-compose file se poora stack deploy karo swarm mein</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker stack ls</div><div class="cmd-cs-desc">Deployed stacks ki list dekho</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker stack ps &lt;STACKNAME&gt;</div><div class="cmd-cs-desc">Stack ke tasks — kaun kahan chal raha</div></div>
+
+      <div class="cmd-group-label">⚙ Config Commands</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker config create testconfig sample.conf</div><div class="cmd-cs-desc">Config file ko swarm mein store karo — sab nodes access karenge</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker service create --name web --config src=testconfig,target=/tmp/sample.conf -p 80:80 nginx</div><div class="cmd-cs-desc">Service create karo aur config file container mein mount karo</div></div>
+
+      <div class="cmd-group-label">💊 Health Check Commands</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">sudo docker build -t healthcheck-demo .</div><div class="cmd-cs-desc">Health check wali image build karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">sudo docker run --name=healthcheck-demo -d --health-cmd='stat /etc/nginx/nginx.conf || exit 1' healthcheck-demo</div><div class="cmd-cs-desc">Container chalao custom health check ke saath — nginx.conf exist kare toh healthy</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">sudo docker inspect --format='{{.State.Health.Status}}' healthcheck-demo</div><div class="cmd-cs-desc">Container ki health status — starting / healthy / unhealthy</div></div>
+    </div>
+
+    <!-- MINIKUBE + KUBECTL — PPT 13 -->
+    <div class="cmd-cs-block">
+      <div class="cmd-cs-header" style="background:linear-gradient(135deg,rgba(0,212,170,.12),rgba(0,212,170,.04));border-color:rgba(0,212,170,.25)">☸ Minikube + kubectl Commands — PPT 13</div>
+      <div class="cmd-group-label">🚀 Minikube Setup (Slide 4)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube start</div><div class="cmd-cs-desc">Minikube cluster shuru karo — local K8s environment ready</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube stop</div><div class="cmd-cs-desc">Cluster band karo — data preserve rahega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube delete</div><div class="cmd-cs-desc">Cluster completely delete karo — sab data jaayega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube status</div><div class="cmd-cs-desc">Cluster ka current status — running hai ya nahi</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube update</div><div class="cmd-cs-desc">Minikube ko latest version pe update karo</div></div>
+
+      <div class="cmd-group-label">⏸ Cluster Management (Slide 4)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube pause</div><div class="cmd-cs-desc">Cluster pause — resources bachao, data safe</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube unpause</div><div class="cmd-cs-desc">Paused cluster resume karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube restart</div><div class="cmd-cs-desc">Cluster restart — stop + start ek saath</div></div>
+
+      <div class="cmd-group-label">⚙ Configuration (Slide 4)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube config set memory 4096</div><div class="cmd-cs-desc">Memory 4GB set karo — restart ke baad effect</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube config set cpus 2</div><div class="cmd-cs-desc">CPUs 2 set karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube config view</div><div class="cmd-cs-desc">Current configuration dekho</div></div>
+
+      <div class="cmd-group-label">📋 Profile Commands (Slide 8)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube profile list</div><div class="cmd-cs-desc">Sabhi profiles ki list — har profile ek alag cluster</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube profile &lt;PROFILE_NAME&gt;</div><div class="cmd-cs-desc">Kisi profile pe switch karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube profile default</div><div class="cmd-cs-desc">Default profile pe wapas jao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube start --profile &lt;NEW_PROFILE_NAME&gt;</div><div class="cmd-cs-desc">Nayi profile banate hue cluster start karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube delete --profile &lt;PROFILE_NAME&gt;</div><div class="cmd-cs-desc">Specific profile delete karo</div></div>
+
+      <div class="cmd-group-label">🔢 Multi-Node Cluster (Slide 9)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube start --nodes 3 --driver=docker</div><div class="cmd-cs-desc">3 nodes wala cluster Docker driver se — 1 control + 2 workers</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube node add</div><div class="cmd-cs-desc">Existing cluster mein aur node add karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube node delete node-name</div><div class="cmd-cs-desc">Cluster se specific node remove karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube service web-app --url</div><div class="cmd-cs-desc">Service ka URL lo — browser mein kholo aur app access karo</div></div>
+
+      <div class="cmd-group-label">📜 kubectl Commands (Slide 5 &amp; 9)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl get nodes</div><div class="cmd-cs-desc">Cluster ke sabhi nodes — status aur role bhi dikhega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl get pods -A</div><div class="cmd-cs-desc">Sabhi namespaces ke pods — -A = all namespaces</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl get services</div><div class="cmd-cs-desc">Cluster services — type, port, IP dikhega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl create deployment nginx --image=nginx</div><div class="cmd-cs-desc">nginx deployment create karo — bina YAML ke simple command</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl scale deployment nginx --replicas=3</div><div class="cmd-cs-desc">Deployment ko 3 replicas pe scale karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl get pods -o wide</div><div class="cmd-cs-desc">Pods ki extended info — kaunse node pe hai bhi pata chalega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">eval $(minikube docker-env)</div><div class="cmd-cs-desc">⭐ IMPORTANT — Docker ko Minikube ka daemon use karne do. Pehle ye chalao phir image build karo warna K8s ko image nahi milegi.</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">minikube docker-env | Invoke-Expression</div><div class="cmd-cs-desc">Windows PowerShell pe same kaam — docker-env set karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">docker build -t my-k8s-app .</div><div class="cmd-cs-desc">Minikube daemon ke saath image build karo — eval ke baad chalao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl apply -f deployment.yaml</div><div class="cmd-cs-desc">Deployment YAML se pods create karo — idempotent hai</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl apply -f service.yaml</div><div class="cmd-cs-desc">Service YAML se service create karo — pods expose karne ke liye</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl delete -f deployment.yaml</div><div class="cmd-cs-desc">Deployment delete karo — cleanup</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">kubectl delete -f service.yaml</div><div class="cmd-cs-desc">Service delete karo</div></div>
+    </div>
+
+    <!-- MONGODB — PPT 8 -->
+    <div class="cmd-cs-block">
+      <div class="cmd-cs-header" style="background:linear-gradient(135deg,rgba(255,209,102,.12),rgba(255,209,102,.04));border-color:rgba(255,209,102,.25)">🍃 MongoDB Commands — PPT 8</div>
+      <div class="cmd-group-label">🗄 Database Commands (Slide 11)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">show dbs</div><div class="cmd-cs-desc">Sabhi databases ki list dekho</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">use users</div><div class="cmd-cs-desc">Database switch karo — nahi hai toh bana dega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db</div><div class="cmd-cs-desc">Current active database ka naam dekho</div></div>
+
+      <div class="cmd-group-label">📁 Collection (Slide 12)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.createCollection("posts")</div><div class="cmd-cs-desc">Explicitly "posts" collection banao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.insertOne(object)</div><div class="cmd-cs-desc">Insert karte waqt bhi collection auto-ban jaati hai</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.getCollectionNames()</div><div class="cmd-cs-desc">Database ki sabhi collections ki list</div></div>
+
+      <div class="cmd-group-label">➕ Insert (Slide 13-14)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.students.insertOne({ name:'Amit', age:20 })</div><div class="cmd-cs-desc">Ek document insert karo — _id automatically milega</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.students.insertMany([{...},{...}])</div><div class="cmd-cs-desc">Multiple documents ek saath — array mein dena hai</div></div>
+
+      <div class="cmd-group-label">🔍 Find (Slide 15-17)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.find()</div><div class="cmd-cs-desc">Sab documents dekho — empty query = sab</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.findOne()</div><div class="cmd-cs-desc">Sirf pehla document return karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.find({ category:"News" })</div><div class="cmd-cs-desc">Filter ke saath — sirf News category wale</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.find({}, { title:1, date:1 })</div><div class="cmd-cs-desc">Projection — sirf title aur date include karo (1=include)</div></div>
+
+      <div class="cmd-group-label">✏ Update (Slide 18-20)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.updateOne({ title:"Post Title 1" }, { $set:{ likes:2 } })</div><div class="cmd-cs-desc">⭐ Pehla matching document update. $set se sirf wahi field badlegi.</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.updateMany({}, { $inc:{ likes:1 } })</div><div class="cmd-cs-desc">Sab documents mein likes 1 se increment — $inc = increment</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.updateOne({ title:"T5" }, { $set:{...} }, { upsert:true })</div><div class="cmd-cs-desc">upsert=true — nahi milega toh nayi entry create kar do</div></div>
+
+      <div class="cmd-group-label">🗑 Delete (Slide 22)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.deleteOne({ title:"Post Title 5" })</div><div class="cmd-cs-desc">Pehla matching document delete karo</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.posts.deleteMany({ category:"Technology" })</div><div class="cmd-cs-desc">Sab matching documents delete — Technology ke sab</div></div>
+
+      <div class="cmd-group-label">🔗 Aggregation (Slide 34)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">db.orders.aggregate([{ $lookup:{ from:"Products", localField:"product_id", foreignField:"_id", as:"product_info" } }])</div><div class="cmd-cs-desc">$lookup — do collections join karo. SQL ke LEFT JOIN jaisa.</div></div>
+
+      <div class="cmd-group-label">📦 Node.js Integration (Slide 38)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">npm install mongodb</div><div class="cmd-cs-desc">MongoDB ka Node.js driver install karo</div></div>
+
+      <div class="cmd-group-label">⚡ Express Project Setup (PPT 6 Slide 3)</div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">mkdir crud-RestAPI</div><div class="cmd-cs-desc">Project ke liye nayi folder banao</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">npm init -y</div><div class="cmd-cs-desc">Node project initialize — package.json banega. -y = sab defaults.</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">touch index.js</div><div class="cmd-cs-desc">Main file banao (Linux/Mac). Windows pe manually create karo.</div></div>
+      <div class="cmd-cs-row"><div class="cmd-cs-code">npm i express</div><div class="cmd-cs-desc">Express framework install karo</div></div>
+    </div>
+
+  </div><!-- end cmd-cs-grid -->
+</section>
+
+</body>
+</html>
